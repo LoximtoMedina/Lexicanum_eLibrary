@@ -1,0 +1,132 @@
+
+.lexi-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; 
+  align-items: center;
+  background-color: var(--color-fondo-nav); 
+  padding: 0 2rem;
+  height: 70px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  font-family: inherit; 
+  border-top: 5px solid var(--color-primario-oscuro); 
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+}
+
+.lexi-nav__menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.lexi-nav__menu--izquierdo {
+  justify-content: flex-start;
+}
+
+.lexi-nav__menu--derecho {
+  justify-content: flex-end;
+}
+
+.lexi-nav__item {
+  display: flex;
+  align-items: center;
+}
+
+.lexi-nav__enlace {
+  color: var(--color-texto-links); 
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease;
+}
+
+.lexi-nav__enlace:hover {
+  color: var(--color-primario-claro); 
+}
+
+.lexi-nav__flecha {
+  font-size: 0.6rem;
+  margin-left: 4px;
+  vertical-align: middle;
+  color: var(--color-texto-mutado); 
+}
+
+.lexi-nav__logo {
+  font-size: 1.8rem;
+  font-family: var(--fuente-titulos); 
+  font-weight: normal;
+  user-select: none;
+  line-height: 1; 
+}
+
+.lexi-nav__logo-prefix {
+  color: var(--color-primario); 
+  font-weight: bold;
+}
+
+.lexi-nav__logo-texto {
+  color: var(--color-texto-oscuro); 
+}
+
+/* ==========================================================================
+   Estilos para el Menú Desplegable (Dropdown)
+   ========================================================================== */
+
+/* Contenedor del ítem (crucial poner relative para que el menú flote respecto a este elemento) */
+.lexi-nav__item--dropdown {
+  position: relative;
+}
+
+/* El menú flotante */
+.lexi-nav__submenu {
+  position: absolute;
+  top: 100%; /* Se posiciona justo abajo del elemento padre */
+  left: 0;
+  background-color: var(--color-blanco);
+  min-width: 180px;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave para darle elevación */
+  border-radius: 4px;
+  border-top: 3px solid var(--color-primario); /* Detalle de color superior */
+  z-index: 1000; /* Asegura que flote por encima de cualquier otro contenido */
+}
+
+/* Ítems del submenú */
+.lexi-nav__submenu-item {
+  width: 100%;
+}
+
+/* Enlaces internos del submenú */
+.lexi-nav__submenu-enlace {
+  display: block;
+  padding: 0.6rem 1.2rem;
+  color: var(--color-texto-oscuro);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* Efecto hover en las opciones del menú */
+.lexi-nav__submenu-enlace:hover {
+  background-color: var(--color-fondo-app); /* Fondo gris claro */
+  color: var(--color-primario); /* Texto cambia al verde de la marca */
+  padding-left: 1.5rem; /* Un ligero desplazamiento hacia la derecha al pasar el mouse */
+}
+
+/* Detalle animado para la flecha ▼ */
+.lexi-nav__flecha {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+/* Si el menú está abierto, la flecha gira hacia arriba */
+.lexi-nav__flecha--abierto {
+  transform: rotate(180deg);
+}
