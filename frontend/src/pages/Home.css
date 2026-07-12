@@ -6,50 +6,40 @@
   padding: 2rem 1.5rem;
 }
 
-/* ==========================================================================
-   Sección Hero (Con Imagen de Fondo Estilizada)
-   ========================================================================== */
 .lexi-home__hero {
-  /* Cargamos la imagen desde assets y le ponemos una capa oscura encima (rgba) */
   background-image: url('../assets/libros.png');
-  background-size: cover;       /* Fuerza a la imagen a cubrir todo el espacio sin deformarse */
-  background-position: center;  /* Centra la imagen para que se vea lo mejor posible */
+  background-size: cover;       
+  background-position: center;  
   background-repeat: no-repeat;
   
   border-radius: 8px;
-  padding: 4rem 2rem;           /* Le damos un poco más de aire arriba y abajo */
+  padding: 4rem 2rem;          
   margin-bottom: 3rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
   
-  /* Quitamos el border-left anterior porque ahora toda la caja tiene contraste */
   border-left: none; 
 }
 
-/* Forzamos a que los textos dentro del Hero sean blancos para que contrasten */
 .lexi-home__hero-titulo {
   font-size: 2.5rem;
-  color: var(--color-blanco) !important; /* Forzado con variables */
+  color: var(--color-blanco) !important; 
   margin-bottom: 1.2rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra al texto para mayor definición */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
 .lexi-home__hero-subtitulo {
-  color: #e2e8f0; /* Un gris muy claro/blanquecino para el texto secundario */
+  color: #e2e8f0;
   font-size: 1.20rem;
   max-width: 750px;
   line-height: 1.7;
 }
 
-/* ==========================================================================
-   Sección de Accesos (Tarjetas/Hipervínculos)
-   ========================================================================== */
 .lexi-home__seccion-titulo {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   text-align: center;
 }
 
-/* Cuadrícula responsiva que se adapta sola si la pantalla se achica */
 .lexi-home__cuadricula {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -57,7 +47,6 @@
   margin-bottom: 4rem;
 }
 
-/* Estilo de los Hipervínculos en forma de tarjetas */
 .lexi-home__tarjeta {
   background-color: var(--color-blanco);
   padding: 2rem 1.5rem;
@@ -88,16 +77,12 @@
   line-height: 1.4;
 }
 
-/* Efecto hover dinámico: la tarjeta se eleva y cambia al verde de la marca */
 .lexi-home__tarjeta:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(74, 107, 81, 0.12);
   border-color: var(--color-primario-claro);
 }
 
-/* ==========================================================================
-   Sección Informativa Inferior
-   ========================================================================== */
 .lexi-home__informacion {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

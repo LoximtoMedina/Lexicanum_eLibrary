@@ -73,11 +73,8 @@
   color: var(--color-texto-oscuro); 
 }
 
-/* ==========================================================================
-   Estilos para el Menú Desplegable (Dropdown)
-   ========================================================================== */
 
-/* Contenedor del ítem (crucial poner relative para que el menú flote respecto a este elemento) */
+/* Contenedor del ítem */
 .lexi-nav__item--dropdown {
   position: relative;
 }
@@ -92,10 +89,10 @@
   list-style: none;
   margin: 0;
   padding: 0.5rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave para darle elevación */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
   border-radius: 4px;
-  border-top: 3px solid var(--color-primario); /* Detalle de color superior */
-  z-index: 1000; /* Asegura que flote por encima de cualquier otro contenido */
+  border-top: 3px solid var(--color-primario); 
+  z-index: 1000; 
 }
 
 /* Ítems del submenú */
@@ -115,18 +112,16 @@
 
 /* Efecto hover en las opciones del menú */
 .lexi-nav__submenu-enlace:hover {
-  background-color: var(--color-fondo-app); /* Fondo gris claro */
-  color: var(--color-primario); /* Texto cambia al verde de la marca */
-  padding-left: 1.5rem; /* Un ligero desplazamiento hacia la derecha al pasar el mouse */
+  background-color: var(--color-fondo-app); 
+  color: var(--color-primario); 
+  padding-left: 1.5rem; 
 }
 
-/* Detalle animado para la flecha ▼ */
 .lexi-nav__flecha {
   display: inline-block;
   transition: transform 0.2s ease;
 }
 
-/* Si el menú está abierto, la flecha gira hacia arriba */
 .lexi-nav__flecha--abierto {
   transform: rotate(180deg);
 }
