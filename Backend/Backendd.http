@@ -1,0 +1,6 @@
+@Backendd_HostAddress = http://localhost:5282
+
+GET {{Backendd_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
