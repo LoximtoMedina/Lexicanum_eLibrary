@@ -12,7 +12,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.OpenApi" Version="3.8.0" />
+    <!-- Microsoft.OpenApi removed: let Microsoft.AspNetCore.OpenApi bring the compatible OpenAPI implementation
+         to avoid source-generator compatibility issues causing CS0200 on generated files. -->
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
   </ItemGroup>
 
