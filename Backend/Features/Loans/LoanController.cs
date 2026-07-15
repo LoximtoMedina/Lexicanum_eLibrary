@@ -1,8 +1,8 @@
 ﻿using System;
 
-public class Class1
+public class LoanController
 {
-	public Class1()
+	public LoanController()
 	{
 	}
 }

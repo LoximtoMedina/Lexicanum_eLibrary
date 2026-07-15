@@ -1,4 +1,15 @@
+using Backend.Data;
+using Backend.Features.Books;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+
+builder.Services.AddControllers();
+
+builder.Services.AddScoped<BookService>();
 
 // Add services to the container.
 

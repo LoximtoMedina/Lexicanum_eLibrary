@@ -9,6 +9,5 @@ public class Loan{
     public DateTime? ReturnDate { get; set; }
     public int Status { get; set; }
     public int Quantity { get; set; }
-    public string? Penalization { get; set;
-
+    public string? Penalization { get; set; }
 }

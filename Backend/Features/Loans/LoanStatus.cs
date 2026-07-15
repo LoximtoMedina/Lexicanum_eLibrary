@@ -1,8 +1,8 @@
 ﻿using System;
 
-public class Class1
+public class LoanStatus
 {
-	public Class1()
+	public LoanStatus()
 	{
 	}
 }
