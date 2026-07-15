@@ -1,5 +1,7 @@
 
 import {useState} from 'react';
+import { FaBuilding, FaUniversity, FaBookOpen, FaHeadset } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import './Home.css'
 
 function Home() {
@@ -16,35 +18,43 @@ function Home() {
         </div>
       </header>
 
-      {/* Sección de Accesos Directos (Hipervínculos Estilizados) */}
+      {/* Sección de Accesos Directos */}
       <section className="lexi-home__seccion-accesos">
         <h3 className="lexi-home__seccion-titulo">Explorar la Biblioteca</h3>
         
         <div className="lexi-home__cuadricula">
           {/* Tarjeta 1: Editoriales */}
           <a href="#editoriales" className="lexi-home__tarjeta">
-            <div className="lexi-home__tarjeta-icono">🏢</div>
+            <div className="lexi-home__tarjeta-icono-wrapper">
+              <FaBuilding className="lexi-home__tarjeta-icono-svg" />
+            </div>
             <h4 className="lexi-home__tarjeta-titulo">Editoriales</h4>
             <p className="lexi-home__tarjeta-desc">Descubre las editoriales que ofrece la plataforma.</p>
           </a>
 
           {/* Tarjeta 2: Universidades */}
           <a href="#universidades" className="lexi-home__tarjeta">
-            <div className="lexi-home__tarjeta-icono">🏛️</div>
+            <div className="lexi-home__tarjeta-icono-wrapper">
+              <FaUniversity className="lexi-home__tarjeta-icono-svg" />
+            </div>
             <h4 className="lexi-home__tarjeta-titulo">Universidades</h4>
             <p className="lexi-home__tarjeta-desc">Explora las universidades que tienen acceso a nuestra plataforma.</p>
           </a>
 
-          {/* Tarjeta 3: Colecciones */}
-          <a href="#colecciones" className="lexi-home__tarjeta">
-            <div className="lexi-home__tarjeta-icono">📚</div>
+          {/* Tarjeta 3: Colecciones modificada en Home.jsx */}
+          <Link to="/colecciones" className="lexi-home__tarjeta">
+            <div className="lexi-home__tarjeta-icono-wrapper">
+              <FaBookOpen className="lexi-home__tarjeta-icono-svg" />
+            </div>
             <h4 className="lexi-home__tarjeta-titulo">Colecciones</h4>
             <p className="lexi-home__tarjeta-desc">Explora las colecciones de libros que tienes disponibles.</p>
-          </a>
+          </Link>
 
           {/* Tarjeta 4: Contacto */}
           <a href="#contacto" className="lexi-home__tarjeta">
-            <div className="lexi-home__tarjeta-icono">📞</div>
+            <div className="lexi-home__tarjeta-icono-wrapper">
+              <FaHeadset className="lexi-home__tarjeta-icono-svg" />
+            </div>
             <h4 className="lexi-home__tarjeta-titulo">Contacto & Soporte</h4>
             <p className="lexi-home__tarjeta-desc">¿Tienes dudas o necesitas ayuda? Ponte en contacto con nosotros.</p>
           </a>
@@ -69,6 +79,22 @@ function Home() {
           </p>
         </div>
       </section>
+
+      {/* Mini Footer de Créditos / Desarrolladores */}
+      <footer className="lexi-home__footer">
+        <div className="lexi-home__footer-linea"></div>
+        <p className="lexi-home__footer-texto">
+          © {new Date().getFullYear()} Lexicanum eLibrary. Desarrollado por:
+        </p>
+        <div className="lexi-home__desarrolladores">
+          <span className="lexi-home__dev-nombre">Yafet Alessandro Flores Zavala</span>
+          <span className="lexi-home__dev-separador">•</span>
+          <span className="lexi-home__dev-nombre">Cristian Josué Medina Galeano</span>
+          <span className="lexi-home__dev-separador">•</span>
+          <span className="lexi-home__dev-nombre">Iván Ernesto Machado Obando</span>
+        </div>
+      </footer>
+
     </div>
   );
 }

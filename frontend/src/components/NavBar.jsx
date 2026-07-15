@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './NavBar.css';
 
 function Navbar() {
@@ -16,7 +17,8 @@ function Navbar() {
       {/* Enlaces del lado izquierdo */}
       <ul className="lexi-nav__menu lexi-nav__menu--izquierdo">
         <li className="lexi-nav__item">
-          <a href="#home" className="lexi-nav__enlace">HOME</a>
+          {/* Cambiado a Link para navegar a la raíz sin recargar */}
+          <Link to="/" className="lexi-nav__enlace">HOME</Link>
         </li>
         
         {/* Agregamos el evento onClick y una clase condicional */}
@@ -42,15 +44,15 @@ function Navbar() {
         </li>
 
         <li className="lexi-nav__item">
-          <a href="#editoriales" className="lexi-nav__enlace">EDITORIALES</a>
+          <Link to="/editoriales" className="lexi-nav__enlace">EDITORIALES</Link>
         </li>
       </ul>
 
-      {/* Logotipo Centrado */}
-      <div className="lexi-nav__logo">
+      {/* Logotipo Centrado (Ahora funciona como enlace al HOME) */}
+      <Link to="/" className="lexi-nav__logo" style={{ textDecoration: 'none' }}>
         <span className="lexi-nav__logo-prefix">L</span>
         <span className="lexi-nav__logo-texto">exicanum</span>
-      </div>
+      </Link>
 
       {/* Enlaces del lado derecho */}
       <ul className="lexi-nav__menu lexi-nav__menu--derecho">
@@ -58,7 +60,8 @@ function Navbar() {
           <a href="#universidades" className="lexi-nav__enlace">UNIVERSIDADES</a>
         </li>
         <li className="lexi-nav__item">
-          <a href="#colecciones" className="lexi-nav__enlace">COLECCIONES</a>
+          {/* Cambiado a Link para redirigir dinámicamente a la página de colecciones */}
+          <Link to="/colecciones" className="lexi-nav__enlace">COLECCIONES</Link>
         </li>
         <li className="lexi-nav__item">
           <a href="#contacto" className="lexi-nav__enlace">CONTACTO</a>

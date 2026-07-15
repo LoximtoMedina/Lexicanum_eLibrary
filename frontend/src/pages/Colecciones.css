@@ -1,0 +1,114 @@
+
+/* ==========================================================================
+   1. CONTENEDOR Y CABECERA DE LA PÁGINA
+   ========================================================================== */
+.lexi-colecciones {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.lexi-colecciones__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.lexi-colecciones__titulo {
+  font-size: 2.2rem;
+  color: var(--color-primario-oscuro);
+  margin-bottom: 1rem;
+}
+
+.lexi-colecciones__subtitulo {
+  font-size: 1.1rem;
+  color: var(--color-texto-mutado);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   2. REJILLA DE LAS COLECCIONES (GRID)
+   ========================================================================== */
+.lexi-colecciones__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+/* ==========================================================================
+   3. COMPONENTE: TARJETA DE COLECCIÓN
+   ========================================================================== */
+.lexi-colecciones__tarjeta {
+  background-color: var(--color-blanco);
+  padding: 2.5rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Efecto Hover interactivo */
+.lexi-colecciones__tarjeta:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(74, 107, 81, 0.12);
+  border-color: var(--color-primario-claro);
+}
+
+/* ==========================================================================
+   4. ELEMENTOS INTERNOS DE LA TARJETA
+   ========================================================================== */
+/* Burbuja circular transparente para el icono vectorizado */
+.lexi-colecciones__icono-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: rgba(74, 107, 81, 0.1); /* 10% opacidad del verde */
+  color: var(--color-primario);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.lexi-colecciones__tarjeta:hover .lexi-colecciones__icono-wrapper {
+  background-color: rgba(74, 107, 81, 0.18);
+  transform: scale(1.05);
+  color: var(--color-primario-oscuro);
+}
+
+/* Título de la colección */
+.lexi-colecciones__tarjeta-titulo {
+  font-size: 1.3rem;
+  color: var(--color-primario-oscuro);
+  margin-bottom: 0.8rem;
+}
+
+/* Descripción de la colección */
+.lexi-colecciones__tarjeta-desc {
+  font-size: 0.95rem;
+  color: var(--color-texto-mutado);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1; /* Empuja el badge hacia abajo equitativamente */
+}
+
+/* Etiqueta indicadora de cantidad de libros */
+.lexi-colecciones__tarjeta-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  background-color: var(--color-fondo-nav);
+  color: var(--color-primario-oscuro);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

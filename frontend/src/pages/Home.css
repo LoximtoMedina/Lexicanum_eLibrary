@@ -1,13 +1,23 @@
-
-/* Contenedor General de la Página */
+/* ==========================================================================
+   1. CONTENEDOR GENERAL DE LA PÁGINA HOME
+   ========================================================================== */
 .lexi-home {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
+/* ==========================================================================
+   2. SECCIÓN HERO (BANNER PRINCIPAL DE BIENVENIDA)
+   ========================================================================== */
 .lexi-home__hero {
-  background-image: url('../assets/libros.png');
+  /* Filtro oscuro para asegurar legibilidad + Imagen de fondo */
+  background-image: linear-gradient(
+      rgba(30, 58, 39, 0.85),
+      rgba(44, 53, 46, 0.9)
+    ),
+    url('../assets/libros.png');
+  
   background-size: cover;       
   background-position: center;  
   background-repeat: no-repeat;
@@ -16,10 +26,10 @@
   padding: 4rem 2rem;          
   margin-bottom: 3rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-  
   border-left: none; 
 }
 
+/* Título Principal dentro del Hero */
 .lexi-home__hero-titulo {
   font-size: 2.5rem;
   color: var(--color-blanco) !important; 
@@ -27,6 +37,7 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
+/* Subtítulo descriptivo dentro del Hero */
 .lexi-home__hero-subtitulo {
   color: #e2e8f0;
   font-size: 1.20rem;
@@ -34,12 +45,17 @@
   line-height: 1.7;
 }
 
+/* ==========================================================================
+   3. SECCIÓN DE ACCESOS DIRECTOS (TÍTULO Y CUADRÍCULA)
+   ========================================================================== */
+/* Título de la sección de exploración */
 .lexi-home__seccion-titulo {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   text-align: center;
 }
 
+/* Distribución en Grid de las tarjetas de accesos */
 .lexi-home__cuadricula {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -47,6 +63,9 @@
   margin-bottom: 4rem;
 }
 
+/* ==========================================================================
+   4. COMPONENTE: TARJETAS DE ACCESO INDIVIDUALE (HIPERVÍNCULOS)
+   ========================================================================== */
 .lexi-home__tarjeta {
   background-color: var(--color-blanco);
   padding: 2rem 1.5rem;
@@ -60,45 +79,140 @@
   align-items: center;
 }
 
-.lexi-home__tarjeta-icono {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
+/* Título interno de cada tarjeta */
 .lexi-home__tarjeta-titulo {
   font-size: 1.2rem;
   color: var(--color-primario-oscuro);
   margin-bottom: 0.5rem;
 }
 
+/* Descripción interna de cada tarjeta */
 .lexi-home__tarjeta-desc {
   font-size: 0.9rem;
   color: var(--color-texto-mutado);
   line-height: 1.4;
 }
 
+/* Comportamiento al pasar el cursor (Hover) sobre la tarjeta */
 .lexi-home__tarjeta:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(74, 107, 81, 0.12);
   border-color: var(--color-primario-claro);
 }
 
+/* ==========================================================================
+   5. COMPONENTE: ICONOS VECTORIALES TRANSPARENTES (DENTRO DE LA TARJETA)
+   ========================================================================== */
+/* Burbuja circular transparente que envuelve al icono */
+.lexi-home__tarjeta-icono-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: rgba(74, 107, 81, 0.1); /* 10% de opacidad del verde */
+  margin-bottom: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* El icono SVG nativo de React Icons */
+.lexi-home__tarjeta-icono-svg {
+  font-size: 1.8rem;
+  color: var(--color-primario);
+  transition: all 0.3s ease;
+}
+
+/* Hover interactivo del icono al pasar el mouse por la tarjeta */
+.lexi-home__tarjeta:hover .lexi-home__tarjeta-icono-wrapper {
+  background-color: rgba(74, 107, 81, 0.18); /* Aumenta un poco el fondo */
+  transform: scale(1.05);
+}
+
+.lexi-home__tarjeta:hover .lexi-home__tarjeta-icono-svg {
+  color: var(--color-primario-oscuro); /* Cambia al tono verde oscuro */
+}
+
+/* ==========================================================================
+   6. SECCIÓN INFORMATIVA INFERIOR (SOBRE NOSOTROS / HORARIOS)
+   ========================================================================== */
+/* Contenedor general de los bloques informativos */
 .lexi-home__informacion {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2.5rem;
-  background-color: var(--color-fondo-nav);
+  background-color: var(--color-blanco);
   padding: 2.5rem;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
+/* Títulos de los bloques informativos */
 .lexi-home__info-bloque h3 {
   font-size: 1.3rem;
   margin-bottom: 0.8rem;
 }
 
+/* Párrafos descriptivos de los bloques informativos */
 .lexi-home__info-bloque p {
   font-size: 0.95rem;
   color: var(--color-texto-oscuro);
+}
+
+/* ==========================================================================
+   7. COMPONENTE: MINI FOOTER DE CRÉDITOS (DESARROLLADORES)
+   ========================================================================== */
+.lexi-home__footer {
+  margin-top: 5rem;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+/* Línea sutil divisoria superior */
+.lexi-home__footer-linea {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(74, 107, 81, 0.2), transparent);
+  margin-bottom: 1.5rem;
+}
+
+/* Texto de copyright inicial */
+.lexi-home__footer-texto {
+  font-size: 0.85rem;
+  color: var(--color-texto-mutated, #718096);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Contenedor de los nombres de los integrantes */
+.lexi-home__desarrolladores {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.8rem;
+}
+
+/* Estilo para cada nombre */
+.lexi-home__dev-nombre {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-primario-oscuro);
+}
+
+/* Separador de puntos intermedios */
+.lexi-home__dev-separador {
+  color: var(--color-primario);
+  opacity: 0.5;
+}
+
+/* Ajuste responsivo: en pantallas pequeñas oculta los puntos y apila los nombres */
+@media (max-width: 600px) {
+  .lexi-home__desarrolladores {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .lexi-home__dev-separador {
+    display: none;
+  }
 }
