@@ -11,7 +11,7 @@ namespace Backend.Features.Universities
         public UniversityService(ApplicationDbContext context) => _context = context;
 
         public async Task<List<University>> GetUniversitiesAsync() =>
-            await _context.Universities.Where(u => u.Active).ToListAsync();
+            await _context.Universities.ToListAsync();
 
         public async Task<University?> GetUniversityByIdAsync(int id) =>
             await _context.Universities.FirstOrDefaultAsync(u => u.Id == id && u.Active);

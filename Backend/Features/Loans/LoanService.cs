@@ -14,7 +14,6 @@ namespace Backend.Features.Loans
             await _context.Loans
                 .Include(l => l.Book)
                 .Include(l => l.User)
-                .Where(l => l.Active)
                 .ToListAsync();
 
         public async Task<Loan?> GetLoansByIdAsync(int id) =>

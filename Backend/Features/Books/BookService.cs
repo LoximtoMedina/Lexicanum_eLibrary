@@ -15,9 +15,7 @@ namespace Backend.Features.Books
 
         public async Task<List<Book>> GetBooksAsync()
         {
-            return await _context.Books
-                                 .Where(b => b.Active == true)
-                                 .ToListAsync();
+            return await _context.Books.ToListAsync();
         }
 
         public async Task<Book?> GetByIdAsync(int id)
