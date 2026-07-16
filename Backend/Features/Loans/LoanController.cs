@@ -11,27 +11,27 @@ namespace Backend.Features.Loans
         public LoanController(LoanService service) => _service = service;
 
         [HttpGet] // GET: https://localhost:xxxx/LibraryAPI/loan
-        public async Task<ActionResult<List<Loan>>> GetAll() => Ok(await _service.GetAllAsync());
+        public async Task<ActionResult<List<Loan>>> GetLoans() => Ok(await _service.GetLoansAsync());
 
         [HttpPost] // POST: https://localhost:xxxx/LibraryAPI/university
-        public async Task<ActionResult> Create(Loan loan)
+        public async Task<ActionResult> CreateLoan(Loan loan)
         {
-            await _service.AddAsync(loan);
-            return CreatedAtAction(nameof(GetAll), new { id = loan.LoanId }, loan);
+            await _service.AddLoanAsync(loan);
+            return CreatedAtAction(nameof(GetLoans), new { id = loan.LoanId }, loan);
         }
 
         [HttpPut("{id}")] // PUT: https://localhost:XXXX/LibraryAPI/loan/{id}
-        public async Task<IActionResult> Update(int id, Loan loan)
+        public async Task<IActionResult> UpdateLoan(int id, Loan loan)
         {
-            var success = await _service.UpdateAsync(id, loan);
+            var success = await _service.UpdateLoanAsync(id, loan);
             if (!success) return NotFound();
             return NoContent();
         }
 
         [HttpDelete("{id}")] // DELETE: https://localhost:XXXX/LibraryAPI/loan/{id}
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteLoan(int id)
         {
-            var success = await _service.DeleteAsync(id);
+            var success = await _service.DeleteLoanAsync(id);
             if (!success) return NotFound();
             return NoContent();
         }

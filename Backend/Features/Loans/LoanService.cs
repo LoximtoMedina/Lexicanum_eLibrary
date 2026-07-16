@@ -10,23 +10,23 @@ namespace Backend.Features.Loans
 
         public LoanService(ApplicationDbContext context) => _context = context;
 
-        public async Task<List<Loan>> GetAllAsync() =>
+        public async Task<List<Loan>> GetLoansAsync() =>
             await _context.Loans
                 .Include(l => l.Book)
                 .Include(l => l.User)
                 .Where(l => l.Active)
                 .ToListAsync();
 
-        public async Task<Loan?> GetByIdAsync(int id) =>
+        public async Task<Loan?> GetLoansByIdAsync(int id) =>
             await _context.Loans.FindAsync(id);
 
-        public async Task AddAsync(Loan loan)
+        public async Task AddLoanAsync(Loan loan)
         {
             _context.Loans.Add(loan);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdateAsync(int id, Loan data)
+        public async Task<bool> UpdateLoanAsync(int id, Loan data)
         {
             var loan = await _context.Loans.FindAsync(id);
             if (loan == null || !loan.Active) return false;
@@ -40,7 +40,7 @@ namespace Backend.Features.Loans
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteLoanAsync(int id)
         {
             var loan = await _context.Loans.FindAsync(id);
             if (loan == null) return false;
