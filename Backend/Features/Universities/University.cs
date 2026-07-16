@@ -7,7 +7,7 @@ namespace Backend.Features.Universities
     public class University
     {
         [Key]
-        [Column("universityId")]
+        [Column("universityid")]
         public int Id { get; set; }
 
         [Column("name")]
