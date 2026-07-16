@@ -3,35 +3,41 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Features.Books
 {
-    [Table("libros")] // Nombre exacto de la tabla en Postgres
+    [Table("books")]
     public class Book
     {
         [Key]
-        [Column("id_libro")]
-        public int IdLibro { get; set; }
+        [Column("bookid")]
+        public int BookId { get; set; }
 
-        [Column("titulo")]
-        public string Titulo { get; set; } = string.Empty;
+        [Column("title")]
+        public string Title { get; set; } = string.Empty;
 
-        [Column("autor")]
-        public string Autor { get; set; } = string.Empty;
+        [Column("author")]
+        public string Author { get; set; } = string.Empty;
 
-        [Column("genero")]
-        public string Genero { get; set; } = string.Empty;
-
-        [Column("anio_publicacion")]
-        public int AnioPublicacion { get; set; }
-
-        [Column("cantidad_disponible")]
-        public int CantidadDisponible { get; set; }
+        [Column("synopsis")]
+        public string? Synopsis { get; set; }
 
         [Column("editorial")]
         public string Editorial { get; set; } = string.Empty;
 
-        [Column("edicion")]
-        public string Edicion { get; set; } = string.Empty;
+        [Column("edition")]
+        public string Edition { get; set; } = string.Empty;
 
-        [Column("activo")]
-        public bool Activo { get; set; } = true;
+        [Column("genre")]
+        public string Genre { get; set; } = string.Empty;
+
+        [Column("publication_year")]
+        public int PublicationYear { get; set; }
+
+        [Column("stock")]
+        public int Stock { get; set; }
+
+        [Column("registration_date")]
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+
+        [Column("active")]
+        public bool Active { get; set; } = true;
     }
 }

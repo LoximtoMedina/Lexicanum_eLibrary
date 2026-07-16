@@ -1,15 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Backend.Features.Books;
+﻿using Backend.Features.Books;
+using Backend.Features.Loans;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options){}
 
         public DbSet<Book> Books { get; set; }
-        // Agregar los DbSet para Users y Loans más adelante
+        public DbSet<Loan> Loans { get; set; }
+
     }
 }

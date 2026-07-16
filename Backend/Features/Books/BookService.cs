@@ -12,16 +12,17 @@ namespace Backend.Features.Books
             _context = context;
         }
 
-        // Obtener todos los libros (Filtra solo los que estén activos).
-        public async Task<List<Book>> GetBooksAsync()
+        public async Task<List<Book>> GetAllBooksAsync()
         {
-            return await _context.Books.Where(b => b.Activo).ToListAsync();
+            // Nota: El tipo 'bit' en Postgres se evalúa como 'true' si es '1'
+            return await _context.Books
+                                 .Where(b => b.Active == true)
+                                 .ToListAsync();
         }
 
-        // Obtener libros por categoría (columna 'genero' en tu BD).
-        public async Task<List<Book>> GetBooksByCategoryAsync(string category)
+        public async Task<Book?> GetByIdAsync(int id)
         {
-            return await _context.Books.Where(b => b.Genero.ToLower() == category.ToLower() && b.Activo).ToListAsync();
+            return await _context.Books.FirstOrDefaultAsync(b => b.BookId == id && b.Active == true);
         }
 
         public async Task<Book> AddBookAsync(Book book)
@@ -31,31 +32,30 @@ namespace Backend.Features.Books
             return book;
         }
 
-        // Actualizar la información de un libro.
         public async Task<bool> UpdateBookAsync(int id, Book bookData)
         {
             var book = await _context.Books.FindAsync(id);
-            if (book == null) return false;
+            if (book == null || book.Active == false) return false;
 
-            book.Titulo = bookData.Titulo;
-            book.Autor = bookData.Autor;
-            book.Genero = bookData.Genero;
-            book.AnioPublicacion = bookData.AnioPublicacion;
-            book.CantidadDisponible = bookData.CantidadDisponible;
+            book.Title = bookData.Title;
+            book.Author = bookData.Author;
+            book.Synopsis = bookData.Synopsis;
+            book.Genre = bookData.Genre;
+            book.PublicationYear = bookData.PublicationYear;
+            book.Stock = bookData.Stock;
             book.Editorial = bookData.Editorial;
-            book.Edicion = bookData.Edicion;
+            book.Edition = bookData.Edition;
 
             await _context.SaveChangesAsync();
             return true;
         }
 
-        // Realiza Soft Delete, es decir, marca un libro como inactivo en lugar de eliminarlo físicamente.
-        public async Task<bool> SoftDeleteBookAsync(int id)
+        public async Task<bool> DeleteBookAsync(int id)
         {
             var book = await _context.Books.FindAsync(id);
             if (book == null) return false;
 
-            book.Activo = false;
+            book.Active = false; // Soft Delete
             await _context.SaveChangesAsync();
             return true;
         }
