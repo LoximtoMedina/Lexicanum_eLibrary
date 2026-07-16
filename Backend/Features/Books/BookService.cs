@@ -1,5 +1,6 @@
-﻿using Backend.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Backend.Features.Books;
+using Backend.Data;
 
 namespace Backend.Features.Books
 {
@@ -12,7 +13,7 @@ namespace Backend.Features.Books
             _context = context;
         }
 
-        public async Task<List<Book>> GetAllBooksAsync()
+        public async Task<List<Book>> GetBooksAsync()
         {
             return await _context.Books
                                  .Where(b => b.Active == true)

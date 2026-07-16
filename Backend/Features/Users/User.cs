@@ -1,12 +1,34 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class User{
+namespace Backend.Features.Users
+{
+    [Table("users")]
+    public class User
+    {
+        [Key]
+        [Column("userid")]
+        public int UserId { get; set; }
 
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public DateTime RegistrationDate { get; set; }
-    public string PasswordHash { get; set; } = string.Empty;
-    public bool IsActive { get; set; } = true;
+        [Column("name")]
+        public string Name { get; set; } = string.Empty;
 
+        [Column("email")]
+        public string Email { get; set; } = string.Empty;
+
+        [Column("password")]
+        public string Password { get; set; } = string.Empty;
+
+        [Column("role")]
+        public string Role { get; set; } = "user";
+
+        [Column("penalization")]
+        public int Penalization { get; set; } = 0;
+
+        [Column("registration_date")]
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+
+        [Column("active")]
+        public bool Active { get; set; } = true;
+    }
 }

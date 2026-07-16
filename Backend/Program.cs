@@ -1,34 +1,36 @@
 using Backend.Data;
 using Backend.Features.Books;
+using Backend.Features.Loans;
+using Backend.Features.Universities;
+using Backend.Features.Users;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Registro del contexto de base de datos
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddControllers();
-
+// Registro de servicios (Inyección de dependencias)
 builder.Services.AddScoped<BookService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<LoanService>();
+builder.Services.AddScoped<UniversityService>();
 
-// Add services to the container.
-
+// Registro de controladores y OpenAPI
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuración del pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

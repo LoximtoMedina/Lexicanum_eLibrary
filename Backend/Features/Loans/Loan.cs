@@ -1,33 +1,39 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Backend.Features.Books;
+using Backend.Features.Users;
 
-namespace Backend.Features.Loans;
-
-[Table("prestamos")]
-public class Loan
+namespace Backend.Features.Loans
 {
-    [Key]
-    [Column("id_prestamo")]
-    public int IdPrestamo { get; set; }
+    [Table("loans")]
+    public class Loan
+    {
+        [Key]
+        [Column("loanid")]
+        public int LoanId { get; set; }
 
-    [Column("id_usuario")]
-    public int IdUsuario { get; set; }
+        [Column("userid")]
+        public int UserId { get; set; }
 
-    [Column("id_libro")]
-    public int IdLibro { get; set; }
+        [ForeignKey("UserId")]
+        public User? User { get; set; }
 
-    [Column("fecha_prestamo")]
-    public DateTime FechaPrestamo { get; set; }
+        [Column("bookid")]
+        public int BookId { get; set; }
 
-    [Column("fecha_devolucion_esperada")]
-    public DateTime FechaDevolucionEsperada { get; set; }
+        [ForeignKey("BookId")]
+        public Book? Book { get; set; }
 
-    [Column("estado")]
-    public string Estado { get; set; } = string.Empty;
+        [Column("status")]
+        public bool Status { get; set; }
 
-    [Column("libros_prestados")]
-    public int LibrosPrestados { get; set; }
+        [Column("loan_date")]
+        public DateTime LoanDate { get; set; } = DateTime.Now;
 
-    [Column("penalizacion")]
-    public string Penalizacion { get; set; } = string.Empty;
+        [Column("devolution_date")]
+        public DateTime DevolutionDate { get; set; }
+
+        [Column("active")]
+        public bool Active { get; set; } = true;
+    }
 }

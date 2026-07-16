@@ -16,7 +16,7 @@ namespace Backend.Features.Books
         [HttpGet] // GET: https://localhost:xxxx/LibraryAPI/book
         public async Task<ActionResult<List<Book>>> GetBooks()
         {
-            return Ok(await _bookService.GetAllBooksAsync());
+            return Ok(await _bookService.GetBooksAsync());
         }
 
         [HttpPost] // POST: https://localhost:xxxx/LibraryAPI/book
