@@ -16,7 +16,7 @@ namespace Backend.Features.Universities
         public async Task<University?> GetUniversityByIdAsync(int id) =>
             await _context.Universities.FirstOrDefaultAsync(u => u.Id == id && u.Active);
 
-        public async Task AddAsync(University university)
+        public async Task AddUniversityAsync(University university)
         {
             _context.Universities.Add(university);
             await _context.SaveChangesAsync();

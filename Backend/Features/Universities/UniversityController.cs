@@ -15,7 +15,7 @@ namespace Backend.Features.Universities
         [HttpPost] // POST: https://localhost:xxxx/LibraryAPI/university
         public async Task<ActionResult> CreateUniversity(University university)
         {
-            await _universityService.AddAsync(university);
+            await _universityService.AddUniversityAsync(university);
             return CreatedAtAction(nameof(GetUniversities), new { id = university.Id }, university);
         }
 
@@ -34,4 +34,5 @@ namespace Backend.Features.Universities
             if (!success) return NotFound();
             return NoContent();
         }
+    }
 }

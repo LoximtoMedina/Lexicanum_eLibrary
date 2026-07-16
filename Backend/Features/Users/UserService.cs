@@ -21,7 +21,7 @@ namespace Backend.Features.Users
             return await _context.Users.Where(u => u.Active == true).ToListAsync();
         }
 
-        public async Task<User?> GetByIdAsync(int id)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.UserId == id && u.Active == true);
         }
