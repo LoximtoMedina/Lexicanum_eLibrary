@@ -28,7 +28,7 @@ namespace Backend.Features.Loans
         public bool Status { get; set; }
 
         [Column("loan_date")]
-        public DateTime LoanDate { get; set; } = DateTime.Now;
+        public DateTime LoanDate { get; set; } = DateTime.UtcNow;
 
         [Column("devolution_date")]
         public DateTime DevolutionDate { get; set; }

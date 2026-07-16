@@ -26,7 +26,7 @@ namespace Backend.Features.Users
         public int Penalization { get; set; } = 0;
 
         [Column("registration_date")]
-        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+        public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
 
         [Column("active")]
         public bool Active { get; set; } = true;

@@ -20,7 +20,7 @@ namespace Backend.Features.Universities
         public string? Location { get; set; }
 
         [Column("registration_date")]
-        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+        public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
 
         [Column("active")]
         public bool Active { get; set; } = true;

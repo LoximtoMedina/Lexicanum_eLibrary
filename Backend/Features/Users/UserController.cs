@@ -3,7 +3,7 @@
 namespace Backend.Features.Users
 {
     [ApiController]
-    [Route("LibraryAPI/[controller]")] // https://localhost:xxxx/LibraryAPI/user
+    [Route("LibraryAPI/[controller]")] // https://localhost:xxxx/LibraryAPI/user/
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
