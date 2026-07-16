@@ -3,7 +3,7 @@
 namespace Backend.Features.Books
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("LibraryAPI/[controller]")] // https://localhost:xxxx/LibraryAPI/book
     public class BookController : ControllerBase
     {
         private readonly BookService _bookService;
@@ -13,29 +13,29 @@ namespace Backend.Features.Books
             _bookService = bookService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetAll()
+        [HttpGet] // GET: https://localhost:xxxx/LibraryAPI/book
+        public async Task<ActionResult<List<Book>>> GetBooks()
         {
             return Ok(await _bookService.GetAllBooksAsync());
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Book>> Create(Book book)
+        [HttpPost] // POST: https://localhost:xxxx/LibraryAPI/book
+        public async Task<ActionResult<Book>> CreateBook(Book book)
         {
             await _bookService.AddBookAsync(book);
-            return CreatedAtAction(nameof(GetAll), new { id = book.BookId }, book);
+            return CreatedAtAction(nameof(GetBooks), new { id = book.BookId }, book);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Book book)
+        [HttpPut("{id}")] // PUT: https://localhost:XXXX/LibraryAPI/book/{id}
+        public async Task<IActionResult> UpdateBook(int id, Book book)
         {
             var success = await _bookService.UpdateBookAsync(id, book);
             if (!success) return NotFound();
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id}")] // DELETE: https://localhost:XXXX/LibraryAPI/book/{id}
+        public async Task<IActionResult> DeleteBook(int id)
         {
             var success = await _bookService.DeleteBookAsync(id);
             if (!success) return NotFound();

@@ -14,7 +14,6 @@ namespace Backend.Features.Books
 
         public async Task<List<Book>> GetAllBooksAsync()
         {
-            // Nota: El tipo 'bit' en Postgres se evalúa como 'true' si es '1'
             return await _context.Books
                                  .Where(b => b.Active == true)
                                  .ToListAsync();
@@ -55,7 +54,7 @@ namespace Backend.Features.Books
             var book = await _context.Books.FindAsync(id);
             if (book == null) return false;
 
-            book.Active = false; // Soft Delete
+            book.Active = false;
             await _context.SaveChangesAsync();
             return true;
         }
