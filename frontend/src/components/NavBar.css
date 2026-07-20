@@ -125,3 +125,49 @@
 .lexi-nav__flecha--abierto {
   transform: rotate(180deg);
 }
+
+/* ==========================================================================
+   ESTILOS ADICIONALES PARA LA PARTE DE USUARIO
+   ========================================================================== */
+
+/* Contenedor del enlace de usuario */
+.lexi-nav__enlace-usuario {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Separación entre el icono y el texto "Mi Perfil" */
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primario); /* Color verde principal de tu paleta */
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* El icono circular de usuario */
+.lexi-nav__usuario-icono {
+  font-size: 1.4rem; /* Tamaño ideal para que no rompa el alto del NavBar */
+  color: var(--color-primario);
+  transition: color 0.2s ease;
+}
+
+/* Texto de usuario */
+.lexi-nav__usuario-texto {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Efecto hover al pasar el cursor */
+.lexi-nav__enlace-usuario:hover {
+  color: var(--color-primario-oscuro);
+  transform: translateY(-1px); /* Sutil micro-animación hacia arriba */
+}
+
+.lexi-nav__enlace-usuario:hover .lexi-nav__usuario-icono {
+  color: var(--color-primario-oscuro);
+}
+
+/* Ajuste responsivo: si la pantalla es muy pequeña, podemos ocultar el texto y dejar solo el icono */
+@media (max-width: 768px) {
+  .lexi-nav__usuario-texto {
+    display: none;
+  }
+}
