@@ -1,0 +1,227 @@
+/* ==========================================
+   1. CONTENEDOR Y CABECERA DE LIBROS
+   ========================================== */
+.lexi-libros {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.lexi-libros__header {
+  margin-bottom: 2.5rem;
+}
+
+.lexi-libros__titulo {
+  font-size: 2.2rem;
+  color: #1b382b;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.lexi-libros__subtitulo {
+  font-size: 1.05rem;
+  color: #64748b;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+/* Toolbar (Conteo y botones de vista) */
+.lexi-libros__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.lexi-libros__conteo {
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.lexi-libros__vistas-toggle {
+  display: flex;
+  gap: 0.3rem;
+  background-color: #f1f5f9;
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+
+.lexi-libros__btn-vista {
+  background: transparent;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.lexi-libros__btn-vista.activo {
+  background-color: #ffffff;
+  color: #1b382b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   2. REJILLA DE TARJETAS (GRID)
+   ========================================== */
+.lexi-libros__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Tarjeta de Libro */
+.lexi-libros__tarjeta {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+}
+
+.lexi-libros__tarjeta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.lexi-libros__badge-genero {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #2d5a43;
+  background-color: #f0f7f3;
+  padding: 0.35rem 0.8rem;
+  border-radius: 15px;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.lexi-libros__nombre {
+  font-size: 1.3rem;
+  color: #1b382b;
+  margin: 0 0 0.8rem 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lexi-libros__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  color: #475569;
+  margin-bottom: 1rem;
+}
+
+.lexi-libros__meta p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lexi-libros__sinopsis {
+  font-size: 0.925rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0;
+  flex-grow: 1;
+}
+
+.lexi-libros__pie {
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #3b5541;
+  font-weight: 600;
+}
+
+.lexi-libros__pie span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ==========================================
+   3. ESTILOS DE LA TABLA
+   ========================================== */
+.lexi-libros__tabla-contenedor {
+  width: 100%;
+  overflow-x: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+  margin-top: 2rem;
+}
+
+.lexi-libros__tabla {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.925rem;
+}
+
+.lexi-libros__tabla th {
+  background-color: #f8fafc;
+  color: #1b382b;
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.lexi-libros__tabla td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #475569;
+}
+
+.lexi-libros__tabla tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.lexi-libros__col-titulo {
+  font-weight: 700;
+  color: #1e293b !important;
+}
+
+.lexi-libros__col-stock {
+  font-weight: 700;
+  color: #2d5a43;
+}
+
+.lexi-libros__badge-tabla {
+  font-size: 0.75rem;
+  background-color: #f0f7f3;
+  color: #2d5a43;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.lexi-libros__mensaje {
+  text-align: center;
+  padding: 4rem 1rem;
+  font-size: 1.1rem;
+  color: #64748b;
+}

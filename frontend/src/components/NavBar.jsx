@@ -65,13 +65,13 @@ function Navbar() {
       {/* Enlaces del lado derecho */}
       <ul className="lexi-nav__menu lexi-nav__menu--derecho">
         <li className="lexi-nav__item">
-          <a href="#universidades" className="lexi-nav__enlace">UNIVERSIDADES</a>
+          <Link to="/universidades" className="lexi-nav__enlace">UNIVERSIDADES</Link>
         </li>
         <li className="lexi-nav__item">
           <Link to="/colecciones" className="lexi-nav__enlace">COLECCIONES</Link>
         </li>
         <li className="lexi-nav__item">
-          <a href="#contacto" className="lexi-nav__enlace">CONTACTO</a>
+          <Link to="/libros" className="lexi-nav__enlace">LIBROS</Link>
         </li>
       </ul>
     </nav>

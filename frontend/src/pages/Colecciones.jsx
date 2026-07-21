@@ -1,93 +1,76 @@
-import React from 'react';
-import { 
-  FaBook, 
-  FaDragon, 
-  FaGhost, 
-  FaGraduationCap, 
-  FaAward, 
-  FaChild 
-} from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { getBooks } from '../services/api';
+import TarjetaColeccion from '../components/TarjetaColeccion';
 import './Colecciones.css';
 
-function Colecciones() {
-  // Datos estáticos basados en la clasificación de los géneros
-  const categorias = [
-    {
-      id: 'narrativa-ficcion',
-      titulo: 'Narrativa Ficción y Novelas',
-      descripcion: 'Explora grandes obras de realismo mágico, novelas históricas, ficción absurda y cuentos clásicos.',
-      icono: <FaBook />,
-      cantidad: '15 libros'
-    },
-    {
-      id: 'fantasia-ciencia-ficcion',
-      titulo: 'Fantasía y Ciencia Ficción',
-      descripcion: 'Viaja a mundos alternativos con colecciones de fantasía épica, tecnología futurista y distopías impactantes.',
-      icono: <FaDragon />,
-      cantidad: '10 libros'
-    },
-    {
-      id: 'misterio-terror',
-      titulo: 'Misterio, Suspenso y Terror',
-      descripcion: 'Adéntrate en la intriga con novelas psicológicas, suspenso atrapante y relatos de terror gótico.',
-      icono: <FaGhost />,
-      cantidad: '6 libros'
-    },
-    {
-      id: 'no-ficcion-academico',
-      titulo: 'No Ficción y Académico',
-      descripcion: 'Amplía tu conocimiento con ensayos históricos, tratados filosóficos y lecturas de autoayuda.',
-      icono: <FaGraduationCap />,
-      cantidad: '3 libros'
-    },
-    {
-      id: 'poesia-clasicos',
-      titulo: 'Poesía y Clásicos',
-      descripcion: 'Grandes epopeyas históricas y obras literarias inmortales que han trascendido a través del tiempo.',
-      icono: <FaAward />,
-      cantidad: '1 libro'
-    },
-    {
-      id: 'infantil-juvenil',
-      titulo: 'Literatura Infantil y Juvenil',
-      descripcion: 'Lecturas seleccionadas para los más jóvenes, desde cuentos ilustrados hasta novelas de aprendizaje.',
-      icono: <FaChild />,
-      cantidad: '2 libros'
-    }
-  ];
+export default function Colecciones() {
+  const [colecciones, setColecciones] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleCategoriaClick = (id) => {
-    // Por ahora solo muestra un log. Aquí irá la lógica de filtrado o navegación al conectar el backend
-    console.log(`Clic en la colección: ${id}`);
-  };
+  useEffect(() => {
+    const obtenerColecciones = async () => {
+      try {
+        const respuesta = await getBooks();
+        const libros = respuesta.data;
+
+        // 1. Filtrar SOLO los libros activos y con datos válidos
+        const librosActivos = libros.filter(libro => {
+          const tieneTitulo = Boolean(libro.title && libro.title.trim() !== '');
+          const tieneGenero = Boolean(libro.genre && libro.genre.trim() !== '');
+          
+          // Condición estricta: active O activo debe ser true
+          const esActivo = libro.active === true || libro.activo === true;
+
+          return tieneTitulo && tieneGenero && esActivo;
+        });
+
+        // 2. Agrupar y contar cuántos libros ACTIVOS pertenecen a cada género
+        const conteoGeneros = librosActivos.reduce((acc, libro) => {
+          const genero = libro.genre.trim();
+          acc[genero] = (acc[genero] || 0) + 1;
+          return acc;
+        }, {});
+
+        // 3. Crear el arreglo de colecciones a mostrar
+        const listaColecciones = Object.keys(conteoGeneros).map(nombre => ({
+          nombre,
+          totalLibros: conteoGeneros[nombre]
+        }));
+
+        setColecciones(listaColecciones);
+      } catch (err) {
+        console.error("Error al obtener colecciones:", err);
+        setError("No se pudieron cargar las colecciones de la biblioteca.");
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    obtenerColecciones();
+  }, []);
+
+  if (cargando) return <div className="lexi-colecciones__mensaje">Cargando colecciones...</div>;
+  if (error) return <div className="lexi-colecciones__mensaje error">{error}</div>;
 
   return (
-    <div className="lexi-colecciones">
+    <main className="lexi-colecciones">
       <header className="lexi-colecciones__header">
-        <h2 className="lexi-colecciones__titulo">Colecciones de la Biblioteca</h2>
+        <h1 className="lexi-colecciones__titulo">Colecciones de la Biblioteca</h1>
         <p className="lexi-colecciones__subtitulo">
           Explora nuestros compendios especializados organizados por géneros y temáticas literarias.
         </p>
       </header>
 
       <div className="lexi-colecciones__grid">
-        {categorias.map((cat) => (
-          <div 
-            key={cat.id} 
-            className="lexi-colecciones__tarjeta"
-            onClick={() => handleCategoriaClick(cat.id)}
-          >
-            <div className="lexi-colecciones__icono-wrapper">
-              {cat.icono}
-            </div>
-            <h3 className="lexi-colecciones__tarjeta-titulo">{cat.titulo}</h3>
-            <p className="lexi-colecciones__tarjeta-desc">{cat.descripcion}</p>
-            <span className="lexi-colecciones__tarjeta-badge">{cat.cantidad}</span>
-          </div>
+        {colecciones.map((item, index) => (
+          <TarjetaColeccion 
+            key={index} 
+            nombreColeccion={item.nombre} 
+            cantidadLibros={item.totalLibros} 
+          />
         ))}
       </div>
-    </div>
+    </main>
   );
 }
-
-export default Colecciones;

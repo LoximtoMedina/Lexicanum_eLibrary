@@ -1,0 +1,85 @@
+.lexi-editoriales__tarjeta {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.8rem;
+  transition: all 0.25s ease-in-out;
+  box-sizing: border-box;
+}
+
+.lexi-editoriales__tarjeta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.lexi-editoriales__badge-pais {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2d5a43;
+  background-color: #f0f7f3;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.lexi-editoriales__nombre {
+  font-size: 1.3rem;
+  color: #1e293b;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lexi-editoriales__hito {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #3b5541;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.lexi-editoriales__descripcion {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.lexi-editoriales__tarjeta-pie {
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lexi-editoriales__enlace-mas {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2d5a43;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.lexi-editoriales__enlace-mas:hover {
+  color: #1b382b;
+  text-decoration: underline;
+}
+
+.lexi-editoriales__icono-enlace {
+  font-size: 0.8rem;
+}
