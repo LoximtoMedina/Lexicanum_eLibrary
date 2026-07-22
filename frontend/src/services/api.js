@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   // Incluimos la ruta base de la API
-  baseURL: 'http://localhost:8080/LibraryAPI' 
+  baseURL: 'http://100.107.57.23:8080/LibraryAPI' 
 });
 
 // Peticiones
