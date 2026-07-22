@@ -1,0 +1,225 @@
+
+.lexi-prestamos-layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 2rem auto;
+  min-height: 520px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* Sidebar Izquierdo */
+.lexi-prestamos__sidebar {
+  width: 260px;
+  background-color: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+  padding: 2.5rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lexi-prestamos__usuario-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.lexi-prestamos__avatar {
+  font-size: 3.8rem;
+  color: #1b382b;
+}
+
+.lexi-prestamos__usuario-nombre {
+  font-weight: 700;
+  color: #1b382b;
+  font-size: 1rem;
+}
+
+/* Menú de Navegación del Sidebar */
+.lexi-prestamos__nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.lexi-prestamos__nav-btn {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  text-align: left;
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.lexi-prestamos__nav-btn:hover {
+  background-color: #f1f5f9;
+  color: #1b382b;
+}
+
+.lexi-prestamos__nav-btn.activo {
+  background-color: #1b382b;
+  color: #ffffff;
+}
+
+/* Área Principal Derecha */
+.lexi-prestamos__main {
+  flex-grow: 1;
+  padding: 3rem 3.5rem;
+  box-sizing: border-box;
+}
+
+.lexi-prestamos__titulo-seccion {
+  font-size: 1.8rem;
+  color: #1b382b;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+.lexi-prestamos__subtext {
+  color: #64748b;
+  font-size: 0.925rem;
+  margin-bottom: 2rem;
+}
+
+/* Historial Bloques */
+.lexi-prestamos__bloque {
+  margin-bottom: 2rem;
+}
+
+.lexi-prestamos__subtitulo {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lexi-prestamos__subtitulo.warning { color: #d97706; }
+.lexi-prestamos__subtitulo.success { color: #2d5a43; }
+
+.lexi-prestamos__vacio {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+.lexi-prestamos__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lexi-prestamos__item-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.lexi-prestamos__item-card .icono-libro {
+  font-size: 1.4rem;
+  color: #1b382b;
+}
+
+.lexi-prestamos__item-card .info h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #1e293b;
+}
+
+.lexi-prestamos__item-card .info span {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* Formularios Pedir / Devolver */
+.lexi-prestamos__form {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 1.5rem;
+}
+
+.lexi-prestamos__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.lexi-prestamos__campo label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1b382b;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.lexi-prestamos__campo input,
+.lexi-prestamos__campo select {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.925rem;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.lexi-prestamos__campo input.input-disabled {
+  background-color: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.lexi-prestamos__btn-submit {
+  padding: 0.9rem;
+  background-color: #1b382b;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.lexi-prestamos__btn-submit:hover {
+  background-color: #2d5a43;
+}
+
+.lexi-prestamos__btn-submit.devolver {
+  background-color: #2563eb;
+}
+
+.lexi-prestamos__btn-submit.devolver:hover {
+  background-color: #1d4ed8;
+}
+
+.lexi-prestamos__cargando {
+  text-align: center;
+  padding: 5rem 1rem;
+  color: #64748b;
+  font-size: 1.1rem;
+}

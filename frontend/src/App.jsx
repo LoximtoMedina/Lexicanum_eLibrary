@@ -6,6 +6,7 @@ import Colecciones from './pages/Colecciones';
 import Editoriales from './pages/Editoriales'; 
 import Libros from './pages/Libros'; 
 import Universidades from './pages/Universidades';
+import Prestamos from './pages/Prestamos';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/editoriales" element={<Editoriales />} />
             <Route path="/libros" element={<Libros />} /> 
             <Route path="/universidades" element={<Universidades />} />
+            <Route path="/prestamos" element={<Prestamos />} />
           </Routes>
         </main>
       </div>

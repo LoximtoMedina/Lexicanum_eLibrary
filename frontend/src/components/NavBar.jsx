@@ -56,7 +56,9 @@ function Navbar() {
                   </Link>
                 </li>
                 <li className="lexi-nav__submenu-item">
-                  <a href="#salas" className="lexi-nav__submenu-enlace">Lectura en línea</a>
+                  <a href="#salas" className="lexi-nav__submenu-enlace">
+                    Lectura en línea
+                  </a>
                 </li>
               </ul>
             )}
