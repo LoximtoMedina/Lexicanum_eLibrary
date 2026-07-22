@@ -70,6 +70,9 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
         alert('Correo o contraseña incorrectos.');
       }
     }
+
+    onClose();
+    navigate('/');
   };
 
   // Manejar el cierre de sesión
@@ -78,6 +81,8 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
     if (setUsuarioSesion) setUsuarioSesion(null);
     setEmail('');
     setPassword('');
+    onClose();
+    navigate('/');
   };
 
   // Formatear la fecha de registro
@@ -107,28 +112,12 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
             <div className="lexi-sidebar__encabezado">
               <FaUserCircle className="lexi-sidebar__avatar" />
               <h2 className="lexi-sidebar__nombre">{usuario.name}</h2>
-              <span className={`lexi-sidebar__rol ${usuario.role === 'admin' ? 'admin' : ''}`}>
-                {usuario.role === 'admin' ? 'Administrador' : 'Usuario Lector'}
+              <span className={`lexi-sidebar__rol ${usuario.role === 'employee' ? 'admin' : ''}`}>
+                {usuario.role === 'employee' ? 'Empleado' : 'Usuario Lector'}
               </span>
             </div>
 
             <div className="lexi-sidebar__contenido">
-              <div className="lexi-sidebar__item-info">
-                <FaHashtag className="lexi-sidebar__icono" />
-                <div>
-                  <label>ID de Usuario</label>
-                  <p>#{usuario.userId}</p>
-                </div>
-              </div>
-
-              <div className="lexi-sidebar__item-info">
-                <FaEnvelope className="lexi-sidebar__icono" />
-                <div>
-                  <label>Correo Electrónico</label>
-                  <p>{usuario.email}</p>
-                </div>
-              </div>
-
               <div className="lexi-sidebar__item-info">
                 <FaCalendarAlt className="lexi-sidebar__icono" />
                 <div>

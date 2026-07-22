@@ -9,12 +9,18 @@ import Universidades from './pages/Universidades';
 import Prestamos from './pages/Prestamos';
 import './App.css';
 
+// Componente para proteger rutas privadas
+const RutaProtegida = ({ children }) => {
+  const usuario = JSON.parse(localStorage.getItem('usuarioLexicanum'));
+  return usuario ? children : <Navigate to="/" replace />;
+};
+
 function App() {
   return (
     <Router>
       <div className="lexi-app">
-        <NavBar /> 
-      
+        <NavBar/> 
+
         <main className="lexi-main-content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -22,7 +28,13 @@ function App() {
             <Route path="/editoriales" element={<Editoriales />} />
             <Route path="/libros" element={<Libros />} /> 
             <Route path="/universidades" element={<Universidades />} />
-            <Route path="/prestamos" element={<Prestamos />} />
+
+            <Route path="/prestamos" element={
+                <RutaProtegida>
+                    <Prestamos />
+                </RutaProtegida>
+              }
+            />
           </Routes>
         </main>
       </div>

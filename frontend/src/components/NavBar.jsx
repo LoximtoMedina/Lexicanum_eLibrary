@@ -46,15 +46,17 @@ function Navbar() {
 
             {menuAbierto && (
               <ul className="lexi-nav__submenu">
-                <li className="lexi-nav__submenu-item">
-                  <Link 
-                    to="/prestamos" 
-                    className="lexi-nav__submenu-enlace"
-                    onClick={() => setMenuAbierto(false)}
-                  >
-                    Préstamos de Libros
-                  </Link>
-                </li>
+                {JSON.parse(localStorage.getItem('usuarioLexicanum')) && (
+                  <li className="lexi-nav__submenu-item">
+                    <Link 
+                      to="/prestamos" 
+                      className="lexi-nav__submenu-enlace"
+                      onClick={() => setMenuAbierto(false)}
+                    >
+                      Préstamos de Libros
+                    </Link>
+                  </li>
+                )}
                 <li className="lexi-nav__submenu-item">
                   <a href="#salas" className="lexi-nav__submenu-enlace">
                     Lectura en línea
