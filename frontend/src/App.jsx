@@ -7,6 +7,7 @@ import Editoriales from './pages/Editoriales';
 import Libros from './pages/Libros'; 
 import Universidades from './pages/Universidades';
 import Prestamos from './pages/Prestamos';
+import LecturaEnLinea from './pages/LecturaEnLinea';
 import './App.css';
 
 // Componente para proteger rutas privadas
@@ -28,6 +29,7 @@ function App() {
             <Route path="/editoriales" element={<Editoriales />} />
             <Route path="/libros" element={<Libros />} /> 
             <Route path="/universidades" element={<Universidades />} />
+            <Route path="/lectura-en-linea" element={<LecturaEnLinea />} />
 
             <Route path="/prestamos" element={
                 <RutaProtegida>

@@ -58,9 +58,13 @@ function Navbar() {
                   </li>
                 )}
                 <li className="lexi-nav__submenu-item">
-                  <a href="#salas" className="lexi-nav__submenu-enlace">
+                  <Link 
+                    to="/lectura-en-linea" 
+                    className="lexi-nav__submenu-enlace"
+                    onClick={() => setMenuAbierto(false)}
+                  >
                     Lectura en línea
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}

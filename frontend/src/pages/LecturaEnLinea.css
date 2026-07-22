@@ -1,0 +1,255 @@
+/* ==========================================
+   1. CONTENEDOR Y CABECERA DE LECTURA
+   ========================================== */
+.lexi-lectura {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.lexi-lectura__header {
+  margin-bottom: 2.5rem;
+}
+
+.lexi-lectura__titulo {
+  font-size: 2.2rem;
+  color: #1b382b;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.lexi-lectura__subtitulo {
+  font-size: 1.05rem;
+  color: #64748b;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+.lexi-lectura__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.lexi-lectura__conteo {
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.lexi-lectura__vistas-toggle {
+  display: flex;
+  gap: 0.3rem;
+  background-color: #f1f5f9;
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+
+.lexi-lectura__btn-vista {
+  background: transparent;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.lexi-lectura__btn-vista.activo {
+  background-color: #ffffff;
+  color: #1b382b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   2. REJILLA DE TARJETAS (GRID)
+   ========================================== */
+.lexi-lectura__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.lexi-lectura__tarjeta {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+}
+
+.lexi-lectura__tarjeta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.lexi-lectura__nombre {
+  font-size: 1.3rem;
+  color: #1b382b;
+  margin: 0 0 0.8rem 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lexi-lectura__sinopsis {
+  font-size: 0.925rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0;
+}
+
+.lexi-lectura__btn-leer {
+  background-color: #1b382b;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.lexi-lectura__btn-leer:hover {
+  background-color: #2d5a43;
+}
+
+/* ==========================================
+   3. ESTILOS DE LA TABLA
+   ========================================== */
+.lexi-lectura__tabla-contenedor {
+  width: 100%;
+  overflow-x: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+  margin-top: 2rem;
+}
+
+.lexi-lectura__tabla {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.925rem;
+}
+
+.lexi-lectura__tabla th {
+  background-color: #f8fafc;
+  color: #1b382b;
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.lexi-lectura__tabla td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #475569;
+}
+
+.lexi-lectura__col-titulo {
+  font-weight: 700;
+  color: #1e293b !important;
+  width: 30%;
+}
+
+.lexi-lectura__col-sinopsis {
+  color: #64748b;
+}
+
+.lexi-lectura__btn-leer-tabla {
+  background-color: #1b382b;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.lexi-lectura__btn-leer-tabla:hover {
+  background-color: #2d5a43;
+}
+
+.lexi-lectura__mensaje {
+  text-align: center;
+  padding: 4rem 1rem;
+  font-size: 1.1rem;
+  color: #64748b;
+}
+
+/* ==========================================
+   4. MODAL DEL VISOR
+   ========================================== */
+.lexi-lectura__modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lexi-lectura__modal-contenido {
+  background-color: #ffffff;
+  width: 90%;
+  height: 90%;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.lexi-lectura__modal-header {
+  padding: 1rem 1.5rem;
+  background-color: #1b382b;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lexi-lectura__modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.lexi-lectura__btn-cerrar {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.lexi-lectura__visor-body {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+}
