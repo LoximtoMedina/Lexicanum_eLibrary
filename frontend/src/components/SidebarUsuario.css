@@ -1,0 +1,249 @@
+
+/* Overlay translúcido de fondo */
+.lexi-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* Panel lateral */
+.lexi-sidebar {
+  width: 100%;
+  max-width: 380px;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: -10px 0 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 2rem;
+  box-sizing: border-box;
+  position: relative;
+  animation: slideLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Botón para cerrar */
+.lexi-sidebar__btn-cerrar {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: #f1f5f9;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #64748b;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lexi-sidebar__btn-cerrar:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Encabezado */
+.lexi-sidebar__encabezado {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 1.5rem;
+}
+
+.lexi-sidebar__avatar {
+  font-size: 4.5rem;
+  color: #1b382b;
+  margin-bottom: 0.8rem;
+}
+
+.lexi-sidebar__nombre {
+  font-size: 1.25rem;
+  color: #1b382b;
+  margin: 0 0 0.3rem 0;
+  font-weight: 700;
+}
+
+.lexi-sidebar__rol {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #2d5a43;
+  background-color: #f0f7f3;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+}
+
+/* Información de usuario */
+.lexi-sidebar__contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-grow: 1;
+}
+
+.lexi-sidebar__item-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lexi-sidebar__icono {
+  font-size: 1.3rem;
+  color: #2d5a43;
+  background-color: #f0f7f3;
+  padding: 0.75rem;
+  border-radius: 12px;
+}
+
+.lexi-sidebar__item-info label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.lexi-sidebar__item-info p {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.925rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+/* Pie de sidebar */
+.lexi-sidebar__pie {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.5rem;
+}
+
+.lexi-sidebar__btn-logout {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: #ffe4e6;
+  color: #e11d48;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.lexi-sidebar__btn-logout:hover {
+  background-color: #fecdd3;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* Estilos para el formulario de Login / Registro */
+.lexi-sidebar__auth {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lexi-sidebar__subtitulo {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-top: 0.2rem;
+}
+
+.lexi-sidebar__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  flex-grow: 1;
+}
+
+.lexi-sidebar__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.lexi-sidebar__campo label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1b382b;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.lexi-sidebar__campo input {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.lexi-sidebar__campo input:focus {
+  border-color: #2d5a43;
+}
+
+.lexi-sidebar__btn-submit {
+  margin-top: 1rem;
+  padding: 0.85rem;
+  background-color: #1b382b;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.lexi-sidebar__btn-submit:hover {
+  background-color: #2d5a43;
+}
+
+.lexi-sidebar__auth-toggle {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.lexi-sidebar__auth-toggle button {
+  background: none;
+  border: none;
+  color: #2d5a43;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}

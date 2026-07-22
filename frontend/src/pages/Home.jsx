@@ -56,7 +56,7 @@ function Home() {
               <FaHeadset className="lexi-home__tarjeta-icono-svg" />
             </div>
             <h4 className="lexi-home__tarjeta-titulo">Contacto & Soporte</h4>
-            <p className="lexi-home__tarjeta-desc">¿Tienes dudas o necesitas ayuda? Ponte en contacto con nosotros.</p>
+            <p className="lexi-home__tarjeta-desc">¿Tienes dudas o necesitas ayuda? Envia un correo electrónico a: <b>bibliotecadigital730@gmail.com</b></p>
           </a>
         </div>
       </section>
