@@ -12,6 +12,7 @@ import {
   FaSignInAlt,
   FaUserPlus
 } from 'react-icons/fa';
+import api from '../services/api'
 import './SidebarUsuario.css';
 
 export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsuarioSesion }) {
@@ -29,22 +30,46 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
   const usuario = usuarioSesion || JSON.parse(localStorage.getItem('usuarioLexicanum'));
 
   // Manejar el submit del Inicio de Sesión
-  const handleLogin = (e) => {
+  const handleSubmitAuth = async (e) => {
     e.preventDefault();
-    // Ejemplo: Simulamos el inicio de sesión exitoso con la estructura del JSON de la BD
-    const usuarioLogueado = {
-      userId: 1,
-      name: nombre || "Usuario Lexicanum",
-      email: email,
-      role: "user",
-      penalization: 0,
-      registrationDate: new Date().toISOString(),
-      active: true
-    };
 
-    localStorage.setItem('usuarioLexicanum', JSON.stringify(usuarioLogueado));
-    if (setUsuarioSesion) setUsuarioSesion(usuarioLogueado);
-    alert("¡Sesión iniciada con éxito!");
+    if (modo === 'registro') {
+      try {
+        // Envía los datos al backend (el backend hace el hash y completa los campos automáticos)
+        await api.post('/user', {
+          name: nombre,
+          email: email,
+          password: password
+        });
+
+        alert('¡Te has registrado con éxito! Debes iniciar sesión.');
+        // Limpiamos los campos y cambiamos a la vista de login
+        setNombre('');
+        setEmail('');
+        setPassword('');
+        setModo('login');
+      } catch (error) {
+        console.error('Error al registrarse:', error);
+        alert('Hubo un error al registrar el usuario. Inténtalo de nuevo.');
+      }
+    } else {
+      try {
+        const response = await api.post('/user/login', {
+          email: email,
+          password: password
+        });
+
+        const usuarioLogueado = response.data;
+
+        localStorage.setItem('usuarioLexicanum', JSON.stringify(usuarioLogueado));
+        if (setUsuarioSesion) setUsuarioSesion(usuarioLogueado);
+        
+        alert("¡Sesión iniciada con éxito!");
+      } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        alert('Correo o contraseña incorrectos.');
+      }
+    }
   };
 
   // Manejar el cierre de sesión
@@ -146,7 +171,7 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
               </p>
             </div>
 
-            <form onSubmit={handleLogin} className="lexi-sidebar__form">
+            <form onSubmit={handleSubmitAuth} className="lexi-sidebar__form">
               {modo === 'registro' && (
                 <div className="lexi-sidebar__campo">
                   <label><FaUser /> Nombre Completo</label>
