@@ -39,4 +39,4 @@ app.UseCors("AllowReactApp");
 app.UseAuthorization();
 app.MapControllers();
 
-app.Run("http://0.0.0.0:7017");
+app.Run("http://0.0.0.0:8080");
