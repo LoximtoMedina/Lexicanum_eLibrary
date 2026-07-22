@@ -1,4 +1,5 @@
-.lexi-colecciones {
+
+.lexi-universidades {
   max-width: 1280px;
   margin: 0 auto;
   padding: 3rem 2.5rem;
@@ -6,18 +7,19 @@
   width: 100%;
 }
 
-.lexi-colecciones__header {
+.lexi-universidades__header {
   text-align: center;
   margin-bottom: 3.5rem;
 }
 
-.lexi-colecciones__titulo {
+.lexi-universidades__titulo {
   font-size: 2.2rem;
   color: #1b382b;
   margin-bottom: 0.8rem;
+  font-weight: 700;
 }
 
-.lexi-colecciones__subtitulo {
+.lexi-universidades__subtitulo {
   font-size: 1.05rem;
   color: #64748b;
   max-width: 650px;
@@ -25,26 +27,16 @@
   line-height: 1.6;
 }
 
-.lexi-colecciones__grid {
+.lexi-universidades__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
   gap: 2rem;
   width: 100%;
 }
 
-.lexi-colecciones__mensaje {
+.lexi-universidades__mensaje {
   text-align: center;
   padding: 4rem 1rem;
   font-size: 1.1rem;
   color: #64748b;
-}
-
-.lexi-colecciones__mensaje.error {
-  color: #e11d48;
-}
-
-@media (max-width: 640px) {
-  .lexi-colecciones {
-    padding: 2rem 1.25rem;
-  }
 }

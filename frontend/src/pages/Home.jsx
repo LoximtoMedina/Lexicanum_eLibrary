@@ -24,13 +24,13 @@ function Home() {
         
         <div className="lexi-home__cuadricula">
           {/* Tarjeta 1: Editoriales */}
-          <a href="#editoriales" className="lexi-home__tarjeta">
+          <Link to="/editoriales" className="lexi-home__tarjeta">
             <div className="lexi-home__tarjeta-icono-wrapper">
               <FaBuilding className="lexi-home__tarjeta-icono-svg" />
             </div>
             <h4 className="lexi-home__tarjeta-titulo">Editoriales</h4>
             <p className="lexi-home__tarjeta-desc">Descubre las editoriales que ofrece la plataforma.</p>
-          </a>
+          </Link>
 
           {/* Tarjeta 2: Universidades */}
           <a href="#universidades" className="lexi-home__tarjeta">
@@ -41,7 +41,7 @@ function Home() {
             <p className="lexi-home__tarjeta-desc">Explora las universidades que tienen acceso a nuestra plataforma.</p>
           </a>
 
-          {/* Tarjeta 3: Colecciones modificada en Home.jsx */}
+          {/* Tarjeta 3: Colecciones */}
           <Link to="/colecciones" className="lexi-home__tarjeta">
             <div className="lexi-home__tarjeta-icono-wrapper">
               <FaBookOpen className="lexi-home__tarjeta-icono-svg" />

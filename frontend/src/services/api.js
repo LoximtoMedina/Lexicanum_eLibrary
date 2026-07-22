@@ -1,11 +1,14 @@
 import axios from 'axios';
 
 const api = axios.create({
-    // Asegúrate de que este puerto sea el mismo que usa tu backend cuando corres en local
-    baseURL: '100.69.251.29:7017' 
+  // Incluimos la ruta base de la API
+  baseURL: 'http://localhost:8080/LibraryAPI' 
 });
 
-// Ejemplo de exportación de una función para obtener libros
+// Peticiones
 export const getBooks = () => api.get('/book');
+export const getUsers = () => api.get('/user');
+export const getUniversities = () => api.get('/university');
+export const getLoans = () => api.get('/loan');
 
 export default api;

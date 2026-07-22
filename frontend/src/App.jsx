@@ -4,6 +4,8 @@ import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Colecciones from './pages/Colecciones';
 import Editoriales from './pages/Editoriales'; 
+import Libros from './pages/Libros'; 
+import Universidades from './pages/Universidades';
 import './App.css';
 
 function App() {
@@ -17,7 +19,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/colecciones" element={<Colecciones />} />
             <Route path="/editoriales" element={<Editoriales />} />
-            {/* Aquí podrás ir agregando las rutas de Editoriales, Universidades, etc. */}
+            <Route path="/libros" element={<Libros />} /> 
+            <Route path="/universidades" element={<Universidades />} />
           </Routes>
         </main>
       </div>

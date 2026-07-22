@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa'; // Importamos el icono de usuario
 import './NavBar.css';
 
 function Navbar() {
@@ -16,8 +17,15 @@ function Navbar() {
     <nav className="lexi-nav">
       {/* Enlaces del lado izquierdo */}
       <ul className="lexi-nav__menu lexi-nav__menu--izquierdo">
+        {/* NUEVA: Sección de Usuario (a la izquierda de HOME) */}
+        <li className="lexi-nav__item lexi-nav__item--usuario">
+          <Link to="/perfil" className="lexi-nav__enlace-usuario">
+            <FaUserCircle className="lexi-nav__usuario-icono" />
+            <span className="lexi-nav__usuario-texto">Mi Perfil</span>
+          </Link>
+        </li>
+
         <li className="lexi-nav__item">
-          {/* Cambiado a Link para navegar a la raíz sin recargar */}
           <Link to="/" className="lexi-nav__enlace">HOME</Link>
         </li>
         
@@ -48,7 +56,7 @@ function Navbar() {
         </li>
       </ul>
 
-      {/* Logotipo Centrado (Ahora funciona como enlace al HOME) */}
+      {/* Logotipo Centrado */}
       <Link to="/" className="lexi-nav__logo" style={{ textDecoration: 'none' }}>
         <span className="lexi-nav__logo-prefix">L</span>
         <span className="lexi-nav__logo-texto">exicanum</span>
@@ -57,14 +65,13 @@ function Navbar() {
       {/* Enlaces del lado derecho */}
       <ul className="lexi-nav__menu lexi-nav__menu--derecho">
         <li className="lexi-nav__item">
-          <a href="#universidades" className="lexi-nav__enlace">UNIVERSIDADES</a>
+          <Link to="/universidades" className="lexi-nav__enlace">UNIVERSIDADES</Link>
         </li>
         <li className="lexi-nav__item">
-          {/* Cambiado a Link para redirigir dinámicamente a la página de colecciones */}
           <Link to="/colecciones" className="lexi-nav__enlace">COLECCIONES</Link>
         </li>
         <li className="lexi-nav__item">
-          <a href="#contacto" className="lexi-nav__enlace">CONTACTO</a>
+          <Link to="/libros" className="lexi-nav__enlace">LIBROS</Link>
         </li>
       </ul>
     </nav>
