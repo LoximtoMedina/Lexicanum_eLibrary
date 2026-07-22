@@ -41,5 +41,17 @@ namespace Backend.Features.Users
             if (!success) return NotFound();
             return NoContent();
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<User>> Login([FromBody] LoginDto loginDto)
+        {
+            var user = await _userService.LoginAsync(loginDto.Email, loginDto.Password);
+            if (user == null)
+            {
+                return Unauthorized(new { message = "Credenciales incorrectas" });
+            }
+
+            return Ok(user); // Devuelve los datos del usuario (incluyendo su ID y Name reales)
+        }
     }
 }

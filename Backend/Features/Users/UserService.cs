@@ -65,5 +65,19 @@ namespace Backend.Features.Users
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<User?> LoginAsync(string email, string password)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Active == true);
+            if (user == null) return null;
+
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
+            if (result == PasswordVerificationResult.Success)
+            {
+                return user;
+            }
+
+            return null;
+        }
     }
 }
