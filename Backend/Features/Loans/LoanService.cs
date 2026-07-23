@@ -10,14 +10,12 @@ namespace Backend.Features.Loans
 
         public LoanService(ApplicationDbContext context) => _context = context;
 
-        public async Task<List<Loan>> GetLoansAsync() =>
+        public async Task<List<Loan>> GetLoansAsync(int userId) =>
             await _context.Loans
                 .Include(l => l.Book)
                 .Include(l => l.User)
+                .Where(l => l.UserId == userId && l.Active)
                 .ToListAsync();
-
-        public async Task<Loan?> GetLoansByIdAsync(int id) =>
-            await _context.Loans.FindAsync(id);
 
         public async Task<(bool Success, string Message)> CreateLoanWithValidationsAsync(int userId, int bookId, DateTime devolutionDate)
         {

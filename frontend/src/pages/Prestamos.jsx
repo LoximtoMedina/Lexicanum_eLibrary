@@ -1,4 +1,4 @@
-import { getBooks, getLoans, createLoan } from '../services/api';
+import { getBooks, getLoans, createLoan, returnLoan } from '../services/api';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { 
@@ -80,7 +80,7 @@ export default function Prestamos() {
   const handleSolicitarPrestamo = async (e) => {
     e.preventDefault();
 
-    // Validación: No permitir más de 3 libros en préstamo
+    // Validación local: No permitir más de 3 libros en préstamo
     if (librosPorDevolver.length >= 3) {
       alert("Has alcanzado el límite máximo de 3 libros en préstamo a la vez. Debes devolver al menos uno antes de solicitar otro.");
       return;
@@ -93,7 +93,6 @@ export default function Prestamos() {
     }
 
     try {
-      // Estructura que espera tu modelo Loan en el backend
       const nuevoPrestamo = {
         bookId: parseInt(libroSeleccionado),
         devolutionDate: new Date(fechaDevolucionEsperada).toISOString()
@@ -104,26 +103,41 @@ export default function Prestamos() {
       alert("¡Préstamo registrado con éxito!");
       setLibroSeleccionado('');
       
-      // Recargar los préstamos para que aparezca en el historial inmediatamente
+      // Recargar los préstamos para actualizar el historial
       const resPrestamos = await getLoans();
       setPrestamos(resPrestamos.data || []);
       
       setPestanaActiva('historial');
     } catch (err) {
       console.error("Error al registrar el préstamo:", err);
-      alert("Hubo un error al registrar el préstamo.");
+      // Muestra el mensaje específico que manda el backend (como stock agotado o límite excedido)
+      alert(err.response?.data || "Hubo un error al registrar el préstamo.");
     }
   };
 
-  const handleDevolverLibro = (e) => {
+  const handleDevolverLibro = async (e) => {
     e.preventDefault();
-    if (!libroSeleccionado) {
-      alert("Por favor selecciona el libro a devolver.");
+    if (!prestamoSeleccionadoId) {
+      alert("Por favor selecciona el préstamo a devolver.");
       return;
     }
-    alert(`¡Devolución registrada para: ${libroSeleccionado}!`);
-    setLibroSeleccionado('');
-    setPestanaActiva('historial');
+
+    try {
+      // Llamada real al backend para registrar la devolución y aplicar penalizaciones si aplica
+      await returnLoan(prestamoSeleccionadoId);
+
+      alert("¡Devolución registrada con éxito!");
+      setPrestamoSeleccionadoId('');
+      
+      // Recargar los préstamos y actualizar la vista
+      const resPrestamos = await getLoans();
+      setPrestamos(resPrestamos.data || []);
+
+      setPestanaActiva('historial');
+    } catch (err) {
+      console.error("Error al devolver el libro:", err);
+      alert(err.response?.data || "Hubo un error al registrar la devolución.");
+    }
   };
 
   const librosPorDevolver = prestamos.filter(

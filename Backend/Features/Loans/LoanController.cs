@@ -15,7 +15,17 @@ namespace Backend.Features.Loans
         public LoanController(LoanService service) => _service = service;
 
         [HttpGet]
-        public async Task<ActionResult<List<Loan>>> GetLoans() => Ok(await _service.GetLoansAsync());
+        public async Task<ActionResult<List<Loan>>> GetLoans()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? User.FindFirst("id")?.Value;
+            if (userIdClaim == null || !int.TryParse(userIdClaim, out int userId))
+            {
+                return Unauthorized("Usuario no identificado en el token.");
+            }
+
+            var loans = await _service.GetLoansAsync(userId);
+            return Ok(loans);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateLoan([FromBody] LoanDto loanDto)

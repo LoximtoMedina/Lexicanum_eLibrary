@@ -29,5 +29,8 @@ export const getUsers = () => api.get('/user');
 export const getUniversities = () => api.get('/university');
 export const getLoans = () => api.get('/loan');
 export const createLoan = (loanData) => api.post('/loan', loanData);
+export const returnLoan = async (loanId) => {
+  return await api.post(`/loan/return/${loanId}`);
+};
 
 export default api;
