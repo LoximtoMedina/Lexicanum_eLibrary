@@ -112,7 +112,7 @@ export default function Prestamos() {
 
       await createLoan(nuevoPrestamo);
       
-      // 🌟 Ventana emergente al completar el préstamo con éxito
+      // Ventana emergente al completar el préstamo con éxito
       Swal.fire({
         icon: 'success',
         title: '¡Préstamo Registrado!',
@@ -143,7 +143,7 @@ export default function Prestamos() {
   const handleDevolverLibro = async (e) => {
     e.preventDefault();
 
-    if (!libroSeleccionado) {
+    if (!prestamoSeleccionadoId) {
       Swal.fire({
         icon: 'warning',
         title: 'Atención',
@@ -153,23 +153,37 @@ export default function Prestamos() {
       return;
     }
 
-    //  Ventana emergente al registrar la devolución con éxito
-    Swal.fire({
-      icon: 'success',
-      title: '¡Devolución Registrada!',
-      text: `La devolución del libro "${libroSeleccionado}" se registró con éxito.`,
-      confirmButtonColor: '#1b3d2f',
-      confirmButtonText: 'Aceptar'
-    });
+    try {
+      await returnLoan(prestamoSeleccionadoId);
 
-    setLibroSeleccionado('');
-    setPestanaActiva('historial');
+      Swal.fire({
+        icon: 'success',
+        title: '¡Devolución Registrada!',
+        text: 'La devolución se registró con éxito.',
+        confirmButtonColor: '#1b3d2f',
+        confirmButtonText: 'Aceptar'
+      });
 
+      setPrestamoSeleccionadoId('');
+      
+      const resPrestamos = await getLoans();
+      setPrestamos(resPrestamos.data || []);
+
+      setPestanaActiva('historial');
+    } catch (err) {
+      console.error("Error al devolver el libro:", err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: err.response?.data || 'Hubo un inconveniente al registrar la devolución.',
+        confirmButtonColor: '#d33'
+      });
+    }
   };
 
-const librosPorDevolver = prestamos.filter(
-  p => p.status === false || p.status === 0
-);
+  const librosPorDevolver = prestamos.filter(
+    p => p.status === false || p.status === 0
+  );
   
   const librosDevueltos = prestamos.filter(
     p => p.status === true || p.status === 1
@@ -182,7 +196,7 @@ const librosPorDevolver = prestamos.filter(
         <nav className="lexi-prestamos__nav">
           <button 
             className={`lexi-prestamos__nav-btn ${pestanaActiva === 'historial' ? 'activo' : ''}`}
-            onClick={() => { setPestanaActiva('historial'); setLibroSeleccionado(''); }}
+            onClick={() => { setPestanaActiva('historial'); setLibroSeleccionado(''); setPrestamoSeleccionadoId(''); }}
           >
             <FaHistory /> Inicio / Historial
           </button>
@@ -322,14 +336,14 @@ const librosPorDevolver = prestamos.filter(
                   <div className="lexi-prestamos__campo">
                     <label>Seleccionar Libro a Devolver</label>
                     <select 
-                      value={libroSeleccionado} 
-                      onChange={(e) => setLibroSeleccionado(e.target.value)}
+                      value={prestamoSeleccionadoId} 
+                      onChange={(e) => setPrestamoSeleccionadoId(e.target.value)}
                       required
                     >
                       <option value="">-- Selecciona un libro prestado --</option>
                       {librosPorDevolver.map((item, idx) => (
-                        <option key={idx} value={item.bookTitle || item.libro}>
-                          {item.bookTitle || item.libro}
+                        <option key={item.loanId || item.id || idx} value={item.loanId || item.id}>
+                          {item.book?.title || item.bookTitle || item.libro || "Libro en préstamo"}
                         </option>
                       ))}
                     </select>
