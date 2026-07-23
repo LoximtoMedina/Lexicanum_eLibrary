@@ -1,20 +1,24 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Backend.Features.Users;
 using Backend.Data;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Backend.Features.Users
 {
     public class UserService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
         private readonly PasswordHasher<User> _passwordHasher = new PasswordHasher<User>();
 
-        public UserService(ApplicationDbContext context)
+        public UserService(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
-
 
         public async Task<List<User>> GetUsersAsync()
         {
@@ -66,18 +70,39 @@ namespace Backend.Features.Users
             return true;
         }
 
-        public async Task<User?> LoginAsync(string email, string password)
+        public async Task<object?> LoginAsync(string email, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Active == true);
             if (user == null) return null;
 
             var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
-            if (result == PasswordVerificationResult.Success)
-            {
-                return user;
-            }
+            if (result != PasswordVerificationResult.Success) return null;
 
-            return null;
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role ?? "User")
+                }),
+                Expires = DateTime.UtcNow.AddHours(8),
+                Issuer = _configuration["Jwt:Issuer"],
+                Audience = _configuration["Jwt:Audience"],
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return new
+            {
+                Token = tokenString,
+                User = user
+            };
         }
     }
 }
