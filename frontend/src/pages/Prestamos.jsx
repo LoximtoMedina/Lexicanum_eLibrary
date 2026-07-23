@@ -1,6 +1,7 @@
 import { getBooks, getLoans, createLoan } from '../services/api';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2'; 
 import { 
   FaHistory, 
   FaHandHolding, 
@@ -82,13 +83,23 @@ export default function Prestamos() {
 
     // Validación: No permitir más de 3 libros en préstamo
     if (librosPorDevolver.length >= 3) {
-      alert("Has alcanzado el límite máximo de 3 libros en préstamo a la vez. Debes devolver al menos uno antes de solicitar otro.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Límite alcanzado',
+        text: 'Has alcanzado el límite máximo de 3 libros en préstamo a la vez. Debes devolver uno antes de solicitar otro.',
+        confirmButtonColor: '#1b3d2f'
+      });
       return;
     }
 
     // Validación: Asegurarse de que se haya seleccionado un libro
     if (!libroSeleccionado) {
-      alert("Por favor selecciona un libro.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atención',
+        text: 'Por favor selecciona un libro.',
+        confirmButtonColor: '#1b3d2f'
+      });
       return;
     }
 
@@ -101,7 +112,15 @@ export default function Prestamos() {
 
       await createLoan(nuevoPrestamo);
       
-      alert("¡Préstamo registrado con éxito!");
+      // 🌟 Ventana emergente al completar el préstamo con éxito
+      Swal.fire({
+        icon: 'success',
+        title: '¡Préstamo Registrado!',
+        text: 'El préstamo se ha realizado con éxito.',
+        confirmButtonColor: '#1b3d2f',
+        confirmButtonText: 'Aceptar'
+      });
+
       setLibroSeleccionado('');
       
       // Recargar los préstamos para que aparezca en el historial inmediatamente
@@ -111,17 +130,36 @@ export default function Prestamos() {
       setPestanaActiva('historial');
     } catch (err) {
       console.error("Error al registrar el préstamo:", err);
-      alert("Hubo un error al registrar el préstamo.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un inconveniente al registrar el préstamo. Revisa tu conexión o intenta de nuevo.',
+        confirmButtonColor: '#d33'
+      });
     }
   };
 
   const handleDevolverLibro = (e) => {
     e.preventDefault();
     if (!libroSeleccionado) {
-      alert("Por favor selecciona el libro a devolver.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atención',
+        text: 'Por favor selecciona el libro a devolver.',
+        confirmButtonColor: '#1b3d2f'
+      });
       return;
     }
-    alert(`¡Devolución registrada para: ${libroSeleccionado}!`);
+
+    // 🌟 Ventana emergente al registrar la devolución con éxito
+    Swal.fire({
+      icon: 'success',
+      title: '¡Devolución Registrada!',
+      text: `La devolución del libro "${libroSeleccionado}" se registró con éxito.`,
+      confirmButtonColor: '#1b3d2f',
+      confirmButtonText: 'Aceptar'
+    });
+
     setLibroSeleccionado('');
     setPestanaActiva('historial');
   };
