@@ -237,15 +237,24 @@ export default function Prestamos() {
                     <p className="lexi-prestamos__vacio">No tienes libros pendientes de devolución.</p>
                   ) : (
                     <div className="lexi-prestamos__lista">
-                      {librosPorDevolver.map((item, idx) => (
-                        <div key={idx} className="lexi-prestamos__item-card por-devolver">
-                          <FaBook className="icono-libro" />
-                          <div className="info">
-                            <h4>{item.bookTitle || item.libro || "Libro en préstamo"}</h4>
-                            <span>Fecha Límite: {item.endDate || item.fechaDevolucion || "En fecha"}</span>
+                      {librosPorDevolver.map((item, idx) => {
+                        const fechaLimite = new Date(item.devolutionDate || item.endDate);
+                        const estaVencido = new Date() > fechaLimite;
+
+                        return (
+                          <div key={idx} className="lexi-prestamos__item-card por-devolver">
+                            <FaBook className="icono-libro" />
+                            <div className="info">
+                              <h4>{item.book?.title || item.bookTitle || item.libro || "Libro en préstamo"}</h4>
+                              <span>ID Préstamo: {item.loanId || item.id}</span><br></br>
+                              <span className={estaVencido ? "texto-vencido" : "texto-en-fecha"}>
+                                Fecha Límite: {item.devolutionDate ? new Date(item.devolutionDate).toLocaleDateString() : (item.endDate || "N/D")} 
+                                {estaVencido ? " (Vencido)" : " (En fecha)"}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -262,7 +271,8 @@ export default function Prestamos() {
                         <div key={idx} className="lexi-prestamos__item-card devuelto">
                           <FaBook className="icono-libro" />
                           <div className="info">
-                            <h4>{item.bookTitle || item.libro || "Libro completado"}</h4>
+                            <h4>{item.book?.title || item.bookTitle || item.libro || "Libro completado"}</h4>
+                            <span>ID Préstamo: {item.loanId || item.id}</span><br></br>
                             <span>Entregado con éxito</span>
                           </div>
                         </div>
