@@ -186,8 +186,10 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
                 <div>
                   <label>Estado / Penalización</label>
                   <p>
-                    {usuario.penalization > 0 
-                      ? `${usuario.penalization} día(s) de penalización` 
+                    {usuario.penalization === -1
+                      ? 'Usuario Baneado'
+                      : usuario.penalization > 0
+                      ? `${usuario.penalization} día(s) de penalización`
                       : 'Sin penalizaciones activas'}
                   </p>
                 </div>

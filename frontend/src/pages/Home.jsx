@@ -33,13 +33,13 @@ function Home() {
           </Link>
 
           {/* Tarjeta 2: Universidades */}
-          <a href="#universidades" className="lexi-home__tarjeta">
+          <Link to="/universidades" className="lexi-home__tarjeta">
             <div className="lexi-home__tarjeta-icono-wrapper">
               <FaUniversity className="lexi-home__tarjeta-icono-svg" />
             </div>
             <h4 className="lexi-home__tarjeta-titulo">Universidades</h4>
-            <p className="lexi-home__tarjeta-desc">Explora las universidades que tienen acceso a nuestra plataforma.</p>
-          </a>
+            <p className="lexi-home__tarjeta-desc">Accede a los recursos académicos de diversas universidades.</p>
+          </Link>
 
           {/* Tarjeta 3: Colecciones */}
           <Link to="/colecciones" className="lexi-home__tarjeta">
