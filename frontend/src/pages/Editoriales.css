@@ -85,6 +85,13 @@
   font-weight: 700;
 }
 
+.lexi-editoriales__mensaje {
+  text-align: center;
+  padding: 4rem 1rem;
+  font-size: 1.1rem;
+  color: #64748b;
+}
+
 /* El hito más famoso */
 .lexi-editoriales__hito {
   display: flex;
