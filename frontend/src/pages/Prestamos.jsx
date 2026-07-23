@@ -1,4 +1,4 @@
-import { getBooks, getLoans, createLoan } from '../services/api';
+import { getBooks, getLoans, createLoan, returnLoan } from '../services/api';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2'; 
@@ -81,7 +81,7 @@ export default function Prestamos() {
   const handleSolicitarPrestamo = async (e) => {
     e.preventDefault();
 
-    // Validación: No permitir más de 3 libros en préstamo
+    // Validación local: No permitir más de 3 libros en préstamo
     if (librosPorDevolver.length >= 3) {
       Swal.fire({
         icon: 'warning',
@@ -104,7 +104,6 @@ export default function Prestamos() {
     }
 
     try {
-      // Estructura que espera tu modelo Loan en el backend
       const nuevoPrestamo = {
         bookId: parseInt(libroSeleccionado),
         devolutionDate: new Date(fechaDevolucionEsperada).toISOString()
@@ -123,7 +122,7 @@ export default function Prestamos() {
 
       setLibroSeleccionado('');
       
-      // Recargar los préstamos para que aparezca en el historial inmediatamente
+      // Recargar los préstamos para actualizar el historial
       const resPrestamos = await getLoans();
       setPrestamos(resPrestamos.data || []);
       
@@ -136,11 +135,13 @@ export default function Prestamos() {
         text: 'Hubo un inconveniente al registrar el préstamo. Revisa tu conexión o intenta de nuevo.',
         confirmButtonColor: '#d33'
       });
+
     }
   };
 
-  const handleDevolverLibro = (e) => {
+  const handleDevolverLibro = async (e) => {
     e.preventDefault();
+
     if (!libroSeleccionado) {
       Swal.fire({
         icon: 'warning',
@@ -151,7 +152,7 @@ export default function Prestamos() {
       return;
     }
 
-    // 🌟 Ventana emergente al registrar la devolución con éxito
+    //  Ventana emergente al registrar la devolución con éxito
     Swal.fire({
       icon: 'success',
       title: '¡Devolución Registrada!',
@@ -162,6 +163,7 @@ export default function Prestamos() {
 
     setLibroSeleccionado('');
     setPestanaActiva('historial');
+
   };
 
   const librosPorDevolver = prestamos.filter(
