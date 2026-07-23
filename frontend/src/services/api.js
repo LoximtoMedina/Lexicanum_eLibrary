@@ -5,6 +5,24 @@ const api = axios.create({
   baseURL: 'http://100.69.251.29:8080/LibraryAPI' 
 });
 
+// Interceptor: Se ejecuta automáticamente antes de cada petición
+api.interceptors.request.use(
+  (config) => {
+    // Buscamos el token que guardaste en el localStorage al hacer login
+    const token = localStorage.getItem('token');
+    
+    if (token) {
+      // Si el token existe, lo adjuntamos en el encabezado Authorization
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 // Peticiones
 export const getBooks = () => api.get('/book');
 export const getUsers = () => api.get('/user');

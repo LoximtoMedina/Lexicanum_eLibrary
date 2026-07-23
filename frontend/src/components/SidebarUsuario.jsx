@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { 
   FaTimes, 
@@ -23,6 +24,7 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nombre, setNombre] = useState('');
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
 
@@ -61,8 +63,9 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
 
         const usuarioLogueado = response.data;
 
-        localStorage.setItem('usuarioLexicanum', JSON.stringify(usuarioLogueado));
-        if (setUsuarioSesion) setUsuarioSesion(usuarioLogueado);
+        localStorage.setItem('token', usuarioLogueado.token);
+        localStorage.setItem('usuarioLexicanum', JSON.stringify(usuarioLogueado.user));
+        if (setUsuarioSesion) setUsuarioSesion(usuarioLogueado.user);
         
         alert("¡Sesión iniciada con éxito!");
       } catch (error) {
