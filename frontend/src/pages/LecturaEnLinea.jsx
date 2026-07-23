@@ -5,6 +5,7 @@ import {
   FaBookOpen, FaTimes, FaThLarge, FaList, FaEye 
 } from 'react-icons/fa';
 import './LecturaEnLinea.css';
+import GutenbergReader from '../components/GutenbergReader';
 
 export default function LecturaEnLinea() {
   const [libros, setLibros] = useState([]);
@@ -52,14 +53,7 @@ export default function LecturaEnLinea() {
 
   // Función para abrir el visor con la URL del PDF o visor estático de prueba
   const abrirLector = (libro) => {
-    // Si tu objeto libro trae una URL (libro.fileUrl o pdfUrl), usas esa.
-    // De lo contrario, puedes usar un PDF público de prueba.
-    const urlLectura = libro.fileUrl || libro.pdfUrl || 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
-    
-    setLibroSeleccionado({
-      ...libro,
-      urlLectura
-    });
+   setLibroSeleccionado(libro);
   };
 
   const cerrarLector = () => setLibroSeleccionado(null);
@@ -170,28 +164,31 @@ export default function LecturaEnLinea() {
 
       )}
 
-      {/* MODAL / VISOR DE LECTURA EN LÍNEA */}
-      {libroSeleccionado && (
+        {/* MODAL / VISOR DE LECTURA EN LÍNEA */}
+        {libroSeleccionado && (
         <div className="lexi-lectura__modal-overlay">
-          <div className="lexi-lectura__modal-contenido">
+            <div className="lexi-lectura__modal-contenido">
             <header className="lexi-lectura__modal-header">
-              <h2>{libroSeleccionado.title}</h2>
-              <button onClick={cerrarLector} className="lexi-lectura__btn-cerrar">
-                <FaTimes />
-              </button>
-            </header>
-            <div className="lexi-lectura__visor-body">
-              <iframe 
-                src={libroSeleccionado.urlLectura} 
-                title={libroSeleccionado.title}
-                width="100%" 
-                height="100%"
-                style={{ border: 'none' }}
-              />
+            <div>
+                <h2 style={{ color: '#ffffff', margin: 0 }}>{libroSeleccionado.title}</h2>
+                <span className="lexi-lectura__modal-subtitulo">
+                Powered by Gutenberg Project
+                </span>
             </div>
-          </div>
+            <button onClick={cerrarLector} className="lexi-lectura__btn-cerrar">
+                <FaTimes />
+            </button>
+            </header>
+
+            <div className="lexi-lectura__visor-body">
+                <GutenbergReader 
+                titulo={libroSeleccionado.title} 
+                isbn={libroSeleccionado.isbn} 
+                />
+            </div>
+            </div>
         </div>
-      )}
+        )}
     </main>
   );
 }
