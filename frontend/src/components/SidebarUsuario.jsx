@@ -1,26 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import Swal from 'sweetalert2'; 
 import { 
   FaTimes, 
   FaUserCircle, 
   FaEnvelope, 
   FaLock, 
-  FaUser,
-  FaHashtag, 
+  FaUser, 
   FaCalendarAlt, 
   FaExclamationCircle, 
   FaSignOutAlt,
   FaSignInAlt,
   FaUserPlus
 } from 'react-icons/fa';
-import api from '../services/api'
+import api from '../services/api';
 import './SidebarUsuario.css';
 
 export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsuarioSesion }) {
-  // Estado para alternar entre la vista de 'login' y 'registro' si no hay sesión
   const [modo, setModo] = useState('login'); // 'login' | 'registro'
   
-  // Estados para los campos de los formularios
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nombre, setNombre] = useState('');
@@ -28,31 +26,43 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
 
   if (!isOpen) return null;
 
-  // Intentamos obtener el usuario guardado si no viene por props
   const usuario = usuarioSesion || JSON.parse(localStorage.getItem('usuarioLexicanum'));
 
-  // Manejar el submit del Inicio de Sesión
+  // Manejar el submit del Inicio de Sesión / Registro
   const handleSubmitAuth = async (e) => {
     e.preventDefault();
 
     if (modo === 'registro') {
       try {
-        // Envía los datos al backend (el backend hace el hash y completa los campos automáticos)
         await api.post('/user', {
           name: nombre,
           email: email,
           password: password
         });
 
-        alert('¡Te has registrado con éxito! Debes iniciar sesión.');
-        // Limpiamos los campos y cambiamos a la vista de login
+        //  Alerta de Registro Exitoso
+        Swal.fire({
+          icon: 'success',
+          title: '¡Cuenta creada!',
+          text: 'Te has registrado con éxito en Lexicanum. Por favor, inicia sesión.',
+          confirmButtonColor: '#1b3d2f', // Color verde institucional
+          timer: 3500
+        });
+
         setNombre('');
         setEmail('');
         setPassword('');
         setModo('login');
       } catch (error) {
         console.error('Error al registrarse:', error);
-        alert('Hubo un error al registrar el usuario. Inténtalo de nuevo.');
+
+        // 🔴 Alerta de Error en Registro
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al registrarse',
+          text: error.response?.data?.message || 'Hubo un error al registrar el usuario. Inténtalo de nuevo.',
+          confirmButtonColor: '#1b3d2f'
+        });
       }
     } else {
       try {
@@ -67,28 +77,70 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
         localStorage.setItem('usuarioLexicanum', JSON.stringify(usuarioLogueado.user));
         if (setUsuarioSesion) setUsuarioSesion(usuarioLogueado.user);
         
-        alert("¡Sesión iniciada con éxito!");
+        onClose();
+        navigate('/');
+
+        //  Alerta / Notification Toast de Login Exitoso
+        Swal.fire({
+          icon: 'success',
+          title: `¡Bienvenido/a, ${usuarioLogueado.user.name || 'Lector'}!`,
+          text: 'Has iniciado sesión correctamente.',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true
+        });
+
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
-        alert('Correo o contraseña incorrectos.');
+
+        //  Alerta de Error en Login
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de Autenticación',
+          text: 'Correo o contraseña incorrectos. Por favor, verifica tus datos.',
+          confirmButtonColor: '#1b3d2f'
+        });
       }
     }
-
-    onClose();
-    navigate('/');
   };
 
   // Manejar el cierre de sesión
   const handleLogout = () => {
-    localStorage.removeItem('usuarioLexicanum');
-    if (setUsuarioSesion) setUsuarioSesion(null);
-    setEmail('');
-    setPassword('');
-    onClose();
-    navigate('/');
+    //  Confirmación de Cierre de Sesión
+    Swal.fire({
+      title: '¿Cerrar Sesión?',
+      text: '¿Estás seguro de que deseas salir de tu cuenta?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#1b3d2f',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, salir',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('usuarioLexicanum');
+        localStorage.removeItem('token');
+        if (setUsuarioSesion) setUsuarioSesion(null);
+        setEmail('');
+        setPassword('');
+        onClose();
+        navigate('/');
+
+        Swal.fire({
+          icon: 'info',
+          title: 'Sesión finalizada',
+          text: 'Has cerrado sesión con éxito.',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2500
+        });
+      }
+    });
   };
 
-  // Formatear la fecha de registro
   const formatearFecha = (fechaStr) => {
     if (!fechaStr) return '—';
     const fecha = new Date(fechaStr);
@@ -110,7 +162,7 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
         </button>
 
         {usuario ? (
-          /* ================= VISTA DE PERFIL (SI YA INICIÓ SESIÓN) ================= */
+          /* ================= VISTA DE PERFIL ================= */
           <>
             <div className="lexi-sidebar__encabezado">
               <FaUserCircle className="lexi-sidebar__avatar" />
@@ -149,7 +201,7 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
             </div>
           </>
         ) : (
-          /* ================= VISTA DE LOGIN / REGISTRO (SI NO HAY SESIÓN) ================= */
+          /* ================= VISTA DE LOGIN / REGISTRO ================= */
           <div className="lexi-sidebar__auth">
             <div className="lexi-sidebar__encabezado">
               <FaUserCircle className="lexi-sidebar__avatar" />
