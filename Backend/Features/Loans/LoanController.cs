@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Features.Loans
 {
     [ApiController]
     [Route("LibraryAPI/[controller]")] // https://localhost:xxxx/LibraryAPI/loan
+    [Authorize]
     public class LoanController : ControllerBase
     {
         private readonly LoanService _service;
@@ -13,9 +15,12 @@ namespace Backend.Features.Loans
         [HttpGet] // GET: https://localhost:xxxx/LibraryAPI/loan
         public async Task<ActionResult<List<Loan>>> GetLoans() => Ok(await _service.GetLoansAsync());
 
-        [HttpPost] // POST: https://localhost:xxxx/LibraryAPI/university
+        [HttpPost] // POST: https://localhost:xxxx/LibraryAPI/loan
         public async Task<ActionResult> CreateLoan(Loan loan)
         {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim != null) loan.UserId = int.Parse(userIdClaim);
+
             await _service.AddLoanAsync(loan);
             return CreatedAtAction(nameof(GetLoans), new { id = loan.LoanId }, loan);
         }

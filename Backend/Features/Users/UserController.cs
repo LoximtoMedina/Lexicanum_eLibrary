@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Features.Users
 {
     [ApiController]
     [Route("LibraryAPI/[controller]")] // https://localhost:xxxx/LibraryAPI/user/
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
@@ -20,6 +22,7 @@ namespace Backend.Features.Users
         }
 
         [HttpPost] // POST: https://localhost:xxxx/LibraryAPI/user
+        [AllowAnonymous]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             await _userService.AddUserAsync(user);
@@ -43,6 +46,7 @@ namespace Backend.Features.Users
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             var resultado = await _userService.LoginAsync(loginDto.Email, loginDto.Password);

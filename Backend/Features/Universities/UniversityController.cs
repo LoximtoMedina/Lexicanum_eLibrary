@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Features.Universities
 {
     [ApiController]
     [Route("LibraryAPI/[controller]")] // https://localhost:xxxx/LibraryAPI/university
+    [Authorize]
     public class UniversityController : ControllerBase
     {
         private readonly UniversityService _universityService;
         public UniversityController(UniversityService service) => _universityService = service;
 
         [HttpGet] // GET: https://localhost:xxxx/LibraryAPI/university
+        [AllowAnonymous]
         public async Task<ActionResult<List<University>>> GetUniversities() => Ok(await _universityService.GetUniversitiesAsync());
 
         [HttpPost] // POST: https://localhost:xxxx/LibraryAPI/university

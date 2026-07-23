@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Features.Books
 {
     [ApiController]
     [Route("LibraryAPI/[controller]")] // https://localhost:xxxx/LibraryAPI/book
+    [Authorize]
     public class BookController : ControllerBase
     {
         private readonly BookService _bookService;
@@ -14,6 +16,7 @@ namespace Backend.Features.Books
         }
 
         [HttpGet] // GET: https://localhost:xxxx/LibraryAPI/book
+        [AllowAnonymous]
         public async Task<ActionResult<List<Book>>> GetBooks()
         {
             return Ok(await _bookService.GetBooksAsync());
