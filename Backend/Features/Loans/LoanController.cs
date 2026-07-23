@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Backend.Features.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Backend.Features.Loans
 {
     [ApiController]
-    [Route("LibraryAPI/[controller]")] // https://localhost:xxxx/LibraryAPI/loan
+    [Route("LibraryAPI/[controller]")]
     [Authorize]
     public class LoanController : ControllerBase
     {
@@ -12,20 +14,41 @@ namespace Backend.Features.Loans
 
         public LoanController(LoanService service) => _service = service;
 
-        [HttpGet] // GET: https://localhost:xxxx/LibraryAPI/loan
+        [HttpGet]
         public async Task<ActionResult<List<Loan>>> GetLoans() => Ok(await _service.GetLoansAsync());
 
-        [HttpPost] // POST: https://localhost:xxxx/LibraryAPI/loan
-        public async Task<ActionResult> CreateLoan(Loan loan)
+        [HttpPost]
+        public async Task<IActionResult> CreateLoan([FromBody] LoanDto loanDto)
         {
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (userIdClaim != null) loan.UserId = int.Parse(userIdClaim);
+            // Obtener ID del usuario autenticado mediante el Token JWT
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? User.FindFirst("id")?.Value;
+            if (userIdClaim == null || !int.TryParse(userIdClaim, out int userId))
+            {
+                return Unauthorized("Usuario no identificado en el token.");
+            }
 
-            await _service.AddLoanAsync(loan);
-            return CreatedAtAction(nameof(GetLoans), new { id = loan.LoanId }, loan);
+            var (success, message) = await _service.CreateLoanWithValidationsAsync(userId, loanDto.BookId, loanDto.DevolutionDate);
+            if (!success)
+            {
+                return BadRequest(message);
+            }
+
+            return Ok(new { message });
         }
 
-        [HttpPut("{id}")] // PUT: https://localhost:XXXX/LibraryAPI/loan/{id}
+        [HttpPost("return/{id}")]
+        public async Task<IActionResult> ReturnLoan(int id)
+        {
+            var (success, message) = await _service.ReturnLoanAsync(id);
+            if (!success)
+            {
+                return BadRequest(message);
+            }
+
+            return Ok(new { message });
+        }
+
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateLoan(int id, Loan loan)
         {
             var success = await _service.UpdateLoanAsync(id, loan);
@@ -33,7 +56,7 @@ namespace Backend.Features.Loans
             return NoContent();
         }
 
-        [HttpDelete("{id}")] // DELETE: https://localhost:XXXX/LibraryAPI/loan/{id}
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoan(int id)
         {
             var success = await _service.DeleteLoanAsync(id);
