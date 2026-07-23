@@ -33,6 +33,7 @@ export default function Prestamos() {
 
   // Estados del Formulario
   const [libroSeleccionado, setLibroSeleccionado] = useState('');
+  const [prestamoSeleccionadoId, setPrestamoSeleccionadoId] = useState('');
   const [fechaPrestamo, setFechaPrestamo] = useState('');
   const [fechaDevolucionEsperada, setFechaDevolucionEsperada] = useState('');
 
@@ -166,11 +167,12 @@ export default function Prestamos() {
 
   };
 
-  const librosPorDevolver = prestamos.filter(
-    p => (p.status || p.estado || '').toLowerCase() !== 'devuelto'
-  );
+const librosPorDevolver = prestamos.filter(
+  p => p.status === false || p.status === 0
+);
+  
   const librosDevueltos = prestamos.filter(
-    p => (p.status || p.estado || '').toLowerCase() === 'devuelto'
+    p => p.status === true || p.status === 1
   );
 
   return (
