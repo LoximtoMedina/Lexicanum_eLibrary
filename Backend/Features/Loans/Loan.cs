@@ -25,7 +25,7 @@ namespace Backend.Features.Loans
         public Book? Book { get; set; }
 
         [Column("status")]
-        public bool Status { get; set; }
+        public bool Status { get; set; } = false;
 
         [Column("loan_date")]
         public DateTime LoanDate { get; set; } = DateTime.UtcNow;

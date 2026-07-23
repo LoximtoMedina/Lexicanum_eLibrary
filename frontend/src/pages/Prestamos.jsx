@@ -1,6 +1,6 @@
+import { getBooks, getLoans, createLoan } from '../services/api';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getBooks, getLoans } from '../services/api';
 import { 
   FaHistory, 
   FaHandHolding, 
@@ -77,15 +77,42 @@ export default function Prestamos() {
     cargarDatos();
   }, []);
 
-  const handleSolicitarPrestamo = (e) => {
+  const handleSolicitarPrestamo = async (e) => {
     e.preventDefault();
+
+    // Validación: No permitir más de 3 libros en préstamo
+    if (librosPorDevolver.length >= 3) {
+      alert("Has alcanzado el límite máximo de 3 libros en préstamo a la vez. Debes devolver al menos uno antes de solicitar otro.");
+      return;
+    }
+
+    // Validación: Asegurarse de que se haya seleccionado un libro
     if (!libroSeleccionado) {
       alert("Por favor selecciona un libro.");
       return;
     }
-    alert(`¡Préstamo registrado!\nLibro: ${libroSeleccionado}\nDevolución esperada: ${fechaDevolucionEsperada}`);
-    setLibroSeleccionado('');
-    setPestanaActiva('historial');
+
+    try {
+      // Estructura que espera tu modelo Loan en el backend
+      const nuevoPrestamo = {
+        bookId: parseInt(libroSeleccionado),
+        devolutionDate: new Date(fechaDevolucionEsperada).toISOString()
+      };
+
+      await createLoan(nuevoPrestamo);
+      
+      alert("¡Préstamo registrado con éxito!");
+      setLibroSeleccionado('');
+      
+      // Recargar los préstamos para que aparezca en el historial inmediatamente
+      const resPrestamos = await getLoans();
+      setPrestamos(resPrestamos.data || []);
+      
+      setPestanaActiva('historial');
+    } catch (err) {
+      console.error("Error al registrar el préstamo:", err);
+      alert("Hubo un error al registrar el préstamo.");
+    }
   };
 
   const handleDevolverLibro = (e) => {
@@ -210,7 +237,7 @@ export default function Prestamos() {
                     >
                       <option value="">-- Selecciona un libro --</option>
                       {libros.map((libro) => (
-                        <option key={libro.bookId || libro.id} value={libro.title}>
+                        <option key={libro.bookId || libro.id} value={libro.id || libro.bookId}>
                           {libro.title} {libro.author ? `— ${libro.author}` : ''}
                         </option>
                       ))}

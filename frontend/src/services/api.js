@@ -28,5 +28,6 @@ export const getBooks = () => api.get('/book');
 export const getUsers = () => api.get('/user');
 export const getUniversities = () => api.get('/university');
 export const getLoans = () => api.get('/loan');
+export const createLoan = (loanData) => api.post('/loan', loanData);
 
 export default api;
