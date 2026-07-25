@@ -71,6 +71,16 @@ function Home() {
             avanzadas para estudiantes, docentes e investigadores.
           </p>
         </div>
+
+        <div className="lexi-home__info-bloque">
+          <h3>Servicios de Préstamo</h3>
+          <p>
+            Al crear tu cuenta tendrás acceso completo al sistema de préstamos de libros. Puedes solicitar un máximo 
+            de <b>3 libros simultáneamente</b>, siempre que realices las devoluciones dentro del plazo establecido para evitar 
+            sanciones o suspensiones en tu perfil.
+          </p>
+        </div>
+
         <div className="lexi-home__info-bloque">
           <h3>Horarios y Disponibilidad</h3>
           <p>
