@@ -19,31 +19,24 @@ namespace Backend.Features.Loans
 
         public async Task<(bool Success, string Message)> CreateLoanWithValidationsAsync(int userId, int bookId, DateTime devolutionDate)
         {
-            // 1. Verificar si el usuario tiene 3 o más libros prestados
             int activeLoansCount = await _context.Loans
                 .CountAsync(l => l.UserId == userId && l.Status == false && l.Active);
 
-            if (activeLoansCount >= 3)
-            {
-                return (false, "Has alcanzado el límite máximo de 3 libros en préstamo a la vez.");
-            }
-
-            // 2. Buscar el libro y verificar stock
             var book = await _context.Books.FindAsync(bookId);
-            if (book == null)
+            if (book == null) return (false, "El libro no existe.");
+
+            var user = await _context.Users.FindAsync(userId);
+            int penalizacionUsuario = user?.Penalization ?? 0;
+
+            bool reglaAprobada = PrologService.ValidarPrestamoConProlog(activeLoansCount, book.Stock, penalizacionUsuario);
+
+            if (!reglaAprobada)
             {
-                return (false, "El libro no existe.");
+                return (false, "La solicitud de préstamo no cumple con las reglas del sistema (límite de libros, sin stock o con penalización activa).");
             }
 
-            if (book.Stock <= 0)
-            {
-                return (false, "No hay stock disponible de este libro.");
-            }
-
-            // 3. Restar 1 al stock del libro
             book.Stock -= 1;
 
-            // 4. Crear el préstamo
             var nuevoPrestamo = new Loan
             {
                 UserId = userId,
