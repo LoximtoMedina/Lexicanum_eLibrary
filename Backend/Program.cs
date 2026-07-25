@@ -56,8 +56,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowReactApp");
-
-// ORDEN CRUCIAL: Authentication debe ir antes de Authorization
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -17,7 +17,9 @@ namespace Backend.Features.Loans
         [HttpGet]
         public async Task<ActionResult<List<Loan>>> GetLoans()
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? User.FindFirst("id")?.Value;
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                  ?? User.FindFirst("id")?.Value
+                  ?? User.FindFirst("userid")?.Value;
             if (userIdClaim == null || !int.TryParse(userIdClaim, out int userId))
             {
                 return Unauthorized("Usuario no identificado en el token.");
@@ -30,8 +32,9 @@ namespace Backend.Features.Loans
         [HttpPost]
         public async Task<IActionResult> CreateLoan([FromBody] LoanDto loanDto)
         {
-            // Obtener ID del usuario autenticado mediante el Token JWT
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? User.FindFirst("id")?.Value;
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                  ?? User.FindFirst("id")?.Value
+                  ?? User.FindFirst("userid")?.Value;
             if (userIdClaim == null || !int.TryParse(userIdClaim, out int userId))
             {
                 return Unauthorized("Usuario no identificado en el token.");
