@@ -19,7 +19,7 @@ namespace Backend.Features.Loans
 
         public async Task<(bool Success, string Message)> CreateLoanWithValidationsAsync(int userId, int bookId, DateTime devolutionDate)
         {
-            // 1. Verificar si el usuario tiene 3 o más libros prestados (status == false significa activo/por devolver)
+            // 1. Verificar si el usuario tiene 3 o más libros prestados
             int activeLoansCount = await _context.Loans
                 .CountAsync(l => l.UserId == userId && l.Status == false && l.Active);
 
@@ -28,7 +28,7 @@ namespace Backend.Features.Loans
                 return (false, "Has alcanzado el límite máximo de 3 libros en préstamo a la vez.");
             }
 
-            // 2. Buscar el libro y verificar stock (> 0)
+            // 2. Buscar el libro y verificar stock
             var book = await _context.Books.FindAsync(bookId);
             if (book == null)
             {
@@ -50,7 +50,7 @@ namespace Backend.Features.Loans
                 BookId = bookId,
                 LoanDate = DateTime.UtcNow,
                 DevolutionDate = devolutionDate,
-                Status = false, // Activo / Pendiente
+                Status = false,
                 Active = true
             };
 
@@ -62,13 +62,17 @@ namespace Backend.Features.Loans
 
         public async Task<(bool Success, string Message)> ReturnLoanAsync(int loanId)
         {
-            var loan = await _context.Loans.Include(l => l.Book).Include(l => l.User).FirstOrDefaultAsync(l => l.LoanId == loanId);
+            var loan = await _context.Loans
+                .Include(l => l.Book)
+                .Include(l => l.User)
+                .FirstOrDefaultAsync(l => l.LoanId == loanId);
+
             if (loan == null || loan.Status == true)
             {
                 return (false, "El préstamo no existe o ya fue devuelto.");
             }
 
-            // 1. Cambiar el status del préstamo a devuelto (true)
+            // 1. Cambiar el status del préstamo a devuelto
             loan.Status = true;
 
             // 2. Sumar 1 al stock del libro correspondiente
@@ -77,28 +81,17 @@ namespace Backend.Features.Loans
                 loan.Book.Stock += 1;
             }
 
-            // 3. Verificar penalización por retraso (Comparar fecha actual vs DevolutionDate esperada)
+            // 3. Evaluar penalización mediante Prolog
             DateTime fechaDevolucionReal = DateTime.UtcNow;
             if (fechaDevolucionReal > loan.DevolutionDate)
             {
                 TimeSpan retraso = fechaDevolucionReal - loan.DevolutionDate;
                 double diasDeRetraso = retraso.TotalDays;
 
-                // Aplicar reglas de penalización al usuario si aplica
                 if (loan.User != null)
                 {
-                    if (diasDeRetraso <= 7)
-                    {
-                        loan.User.Penalization = 30; // 1 mes de Timeout
-                    }
-                    else if (diasDeRetraso > 7 && diasDeRetraso < 30)
-                    {
-                        loan.User.Penalization = 365; // 1 año de Timeout
-                    }
-                    else
-                    {
-                        loan.User.Penalization = -1; // Ban permanente
-                    }
+                    // Llamada directa al motor Prolog embebido
+                    loan.User.Penalization = PrologService.ObtenerPenalizacion(diasDeRetraso);
                 }
             }
 
