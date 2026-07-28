@@ -130,13 +130,16 @@ export default function Prestamos() {
       setPestanaActiva('historial');
     } catch (err) {
       console.error("Error al registrar el préstamo:", err);
+      
+      const mensajeError = err.response?.data || 'Hubo un inconveniente al registrar el préstamo.';
+
       Swal.fire({
         icon: 'error',
-        title: 'Error',
-        text: 'Hubo un inconveniente al registrar el préstamo. Revisa tu conexión o intenta de nuevo.',
-        confirmButtonColor: '#d33'
+        title: 'Acceso Denegado',
+        text: mensajeError, // Muestra el mensaje específico de Prolog/Backend
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Entendido'
       });
-
     }
   };
 

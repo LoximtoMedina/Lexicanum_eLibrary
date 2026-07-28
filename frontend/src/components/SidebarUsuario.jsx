@@ -45,7 +45,7 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
           icon: 'success',
           title: '¡Cuenta creada!',
           text: 'Te has registrado con éxito en Lexicanum. Por favor, inicia sesión.',
-          confirmButtonColor: '#1b3d2f', // Color verde institucional
+          confirmButtonColor: '#1b3d2f',
           timer: 3500
         });
 
@@ -56,7 +56,7 @@ export default function SidebarUsuario({ isOpen, onClose, usuarioSesion, setUsua
       } catch (error) {
         console.error('Error al registrarse:', error);
 
-        // 🔴 Alerta de Error en Registro
+        // Alerta de Error en Registro
         Swal.fire({
           icon: 'error',
           title: 'Error al registrarse',
