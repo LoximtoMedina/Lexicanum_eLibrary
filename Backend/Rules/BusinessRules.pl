@@ -1,8 +1,9 @@
-% Un préstamo es válido si tiene menos de 3 libros activos, stock mayor a 0 y penalización igual a 0
-puede_prestar(LibrosActivos, StockLibro, Penalizacion) :-
+% Un préstamo es válido si tiene menos de 3 libros activos, stock mayor a 0 y penalización igual a 0. Si cumple todos los requisitos para prestar devuelve 1, de lo contrario devuelve 0.
+puede_prestar(LibrosActivos, StockLibro, Penalizacion, 1) :-
     LibrosActivos < 3,
     StockLibro > 0,
-    Penalizacion =:= 0.
+    Penalizacion =:= 0, !.
+puede_prestar(_, _, _, 0).
 
 % Regla de cálculo de penalización según días de retraso
 % calcular_penalizacion(+Dias, -Penalizacion)

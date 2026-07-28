@@ -58,10 +58,20 @@ namespace Backend.Features.Loans
                 var engine = new PrologEngine();
                 engine.Consult(RulesFilePath);
 
-                string query = $"puede_prestar({librosActivos}, {stockLibro}, {penalizacion}).";
+                string query = $"puede_prestar({librosActivos}, {stockLibro}, {penalizacion}, Res).";
                 var solution = engine.GetFirstSolution(query);
 
-                return solution != null;
+                if (solution != null)
+                {
+                    string solutionText = solution.ToString();
+                    // Verificamos que la respuesta contenga Res = 1
+                    if (!string.IsNullOrEmpty(solutionText) && solutionText.Contains("Res = 1"))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
             }
             catch (Exception ex)
             {
