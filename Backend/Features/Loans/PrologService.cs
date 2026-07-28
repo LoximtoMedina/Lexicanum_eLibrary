@@ -53,31 +53,7 @@ namespace Backend.Features.Loans
 
         public static bool ValidarPrestamoConProlog(int librosActivos, int stockLibro, int penalizacion)
         {
-            try
-            {
-                var engine = new PrologEngine();
-                engine.Consult(RulesFilePath);
-
-                string query = $"puede_prestar({librosActivos}, {stockLibro}, {penalizacion}, Res).";
-                var solution = engine.GetFirstSolution(query);
-
-                if (solution != null)
-                {
-                    string solutionText = solution.ToString();
-                    // Verificamos que la respuesta contenga Res = 1
-                    if (!string.IsNullOrEmpty(solutionText) && solutionText.Contains("Res = 1"))
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al validar préstamo con Prolog: {ex.Message}");
-                return false;
-            }
+            return (librosActivos < 3) && (stockLibro > 0) && (penalizacion == 0);
         }
     }
 }
