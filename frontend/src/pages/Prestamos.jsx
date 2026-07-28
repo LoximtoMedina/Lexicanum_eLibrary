@@ -129,8 +129,7 @@ export default function Prestamos() {
       
       setPestanaActiva('historial');
     } catch (err) {
-      console.error("Error al registrar el préstamo:", err);
-      
+      console.error("Detalle del error 400:", err.response?.data);
       const mensajeError = err.response?.data || 'Hubo un inconveniente al registrar el préstamo.';
 
       Swal.fire({

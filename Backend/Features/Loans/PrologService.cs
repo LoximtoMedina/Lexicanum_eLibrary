@@ -11,10 +11,10 @@ namespace Backend.Features.Loans
 
         private static string GetRulesFilePath()
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Rules", "BussinessRules.pl");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Rules", "BusinessRules.pl");
             if (!File.Exists(filePath))
             {
-                filePath = Path.Combine(Directory.GetCurrentDirectory(), "Rules", "BussinessRules.pl");
+                filePath = Path.Combine(Directory.GetCurrentDirectory(), "Rules", "BusinessRules.pl");
             }
             return filePath;
         }
